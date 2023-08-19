@@ -34,12 +34,13 @@ export class gainFriends extends plugin {
 		// 获取目标页数
 		let targetPage = function () {
 			let targetPage = 1;
-			if (e.msg.test(/^#*(获取)*好友列表([\d]+)$/)) targetPage = Number(e.msg.match(/^#*(获取)*好友列表([\d]+)?$/)[2]);
+			if (/^#*(获取)*好友列表([\d]+)$/.test(e.msg)) targetPage = Number(e.msg.match(/^#*(获取)*好友列表([\d]+)?$/)[2]);
 			if (targetPage > 0) return targetPage;
 			return 1;
 		}();
 		// 计算开始与结尾
-		let startNum = (targetPage - 1) * pageCount, endNum = (targetPage * pageCount) - 1;
+		let startNum = (targetPage - 1) * pageCount;
+		let endNum = (targetPage * pageCount) - 1;
 		// 遍历好友列表
 		Bot.fl.forEach( (key, value) => {
 			if (startNum <= seekNum && seekNum <= endNum) {
