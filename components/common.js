@@ -5,11 +5,8 @@ async function generateForwardMsg (e, title = false, forwardMsg = []) {
 	// 频道则返回
 	if (e.QQGuild) return forwardMsg;
 	
-	if (!Array.isArray(forwardMsg)) forwardMsg = [forwardMsg];
-	
 	if (e.isGroup) forwardMsg = await e.group.makeForwardMsg(forwardMsg);
-	else if (e.isPrivate) forwardMsg = await e.friend.makeForwardMsg(forwardMsg);
-	else return forwardMsg;
+	else forwardMsg = await e.friend.makeForwardMsg(forwardMsg);
 	
 	if (title) {
 		forwardMsg.data = forwardMsg.data
