@@ -46,7 +46,7 @@ export class gainFriends extends plugin {
 			if (startNum <= seekNum && seekNum <= endNum) {
 				let friendUin = value;
 				// 判断是否需要加密
-				if (e.isGroup || !e.isMaster) friendUin = common.codeString(friendUin);
+				if (e.isGroup || !e.isMaster) friendUin = await common.codeString(friendUin);
 				// 加入转发消息
 				forwardMsg.push({
 					user_id: e.bot.uin,
