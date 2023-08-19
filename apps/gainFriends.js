@@ -37,8 +37,7 @@ export class gainFriends extends plugin {
 			if (e.msg.test(/^#*(获取)*好友列表([\d]+)$/)) targetPage = Number(e.msg.match(/^#*(获取)*好友列表([\d]+)?$/)[2]);
 			if (targetPage > 0) return targetPage;
 			return 1;
-		};
-logger.mark(targetPage);
+		}();
 		// 计算开始与结尾
 		let startNum = (targetPage - 1) * pageCount, endNum = (targetPage * pageCount) - 1;
 		// 遍历好友列表
@@ -65,7 +64,6 @@ logger.mark(targetPage);
 			forwardMsg = await common.generateForwardMsg(e, `共计 ${Bot.fl.size} 位好友 (第${targetPage}页/共${Math.ceil(Bot.fl.size / pageCount)}页)`, forwardMsg);
 			await e.reply(forwardMsg);
 		}
-logger.mark(forwardMsg.length);
 		return true;
 	};
 };
