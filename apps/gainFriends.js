@@ -28,7 +28,7 @@ export class gainFriends extends plugin {
 			{
 				user_id: e.bot.uin,
 				nickname: e.bot.nickname,
-				message: `※共计 ${e.bot.fl.size} 位好友...`
+				message: `※共计 ${friends.size} 位好友`
 			}
 		];
 		// 获取目标页数
@@ -42,17 +42,17 @@ export class gainFriends extends plugin {
 		let startNum = (targetPage - 1) * pageCount;
 		let endNum = (targetPage * pageCount) - 1;
 		// 遍历好友列表
-		e.bot.fl.forEach( (key, value) => {
+		friends.forEach( (key, value) => {
 			if (startNum <= seekNum && seekNum <= endNum) {
 				let friendUin = value;
 				// 判断是否需要加密
-				if (e.isGroup || !e.isMaster) friendUin = common.codeString(value);
+				if (e.isGroup || !e.isMaster) friendUin = common.codeString(friendUin);
 				// 加入转发消息
 				forwardMsg.push({
 					user_id: e.bot.uin,
 					nickname: e.bot.nickname,
 					message: [
-						key.remark,
+						// key.remark,
 						segment.image(`https://q1.qlogo.cn/g?b=qq&s=100&nk=${value}`),
 						`\n${friendUin}(${key.nickname})`
 					]
@@ -62,9 +62,9 @@ export class gainFriends extends plugin {
 		});
 		// 制作转发消息
 		if (forwardMsg.length > 1) {
-			forwardMsg = await common.generateForwardMsg(e, `共计 ${e.bot.fl.size} 位好友 (第${targetPage}页/共${Math.ceil(e.bot.fl.size / pageCount)}页)`, forwardMsg);
+			forwardMsg = await common.generateForwardMsg(e, `共计 ${friends.size} 位好友 (第${targetPage}页/共${Math.ceil(friends.size / pageCount)}页)`, forwardMsg);
 			await e.reply(forwardMsg);
-		}
+		} else e.reply("※没有找到符合条件好好友", true);
 		return true;
 	};
 };
