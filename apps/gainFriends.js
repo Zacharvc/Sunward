@@ -42,7 +42,7 @@ export class gainFriends extends plugin {
 		let startNum = (targetPage - 1) * pageCount;
 		let endNum = (targetPage * pageCount) - 1;
 		// 遍历好友列表
-		friends.forEach( async (key, value) => {
+		await friends.forEach( async (key, value) => {
 			if (startNum <= seekNum && seekNum <= endNum) {
 				let friendUin = value;
 				// 判断是否需要加密
@@ -52,9 +52,9 @@ export class gainFriends extends plugin {
 					user_id: e.bot.uin,
 					nickname: e.bot.nickname,
 					message: [
-						// key.remark,
+						key.remark,
 						segment.image(`https://q1.qlogo.cn/g?b=qq&s=100&nk=${value}`),
-						`\n${friendUin}(${key.nickname})`
+						`\n${friendUin}`
 					]
 				});
 			}
@@ -64,7 +64,7 @@ export class gainFriends extends plugin {
 		if (forwardMsg.length > 1) {
 			forwardMsg = await common.generateForwardMsg(e, `共计 ${friends.size} 位好友 (第${targetPage}页/共${Math.ceil(friends.size / pageCount)}页)`, forwardMsg);
 			await e.reply(forwardMsg);
-		} else e.reply("※没有找到符合条件好好友", true);
+		} else e.reply("※没有找到符合条件的好友", true);
 		return true;
 	};
 };
