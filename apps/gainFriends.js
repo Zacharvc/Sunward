@@ -18,7 +18,7 @@ export class gainFriends extends plugin {
 	async getFriendList () {
 		let e = this.e;
 		// 重新载入好友
-		Bot.reloadFriendList();
+		await Bot.reloadFriendList();
 		// 获取全部好友
 		let friends = await Bot.fl;
 		// 开始, 每页个数
