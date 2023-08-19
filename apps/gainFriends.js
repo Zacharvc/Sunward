@@ -42,11 +42,11 @@ export class gainFriends extends plugin {
 		let startNum = (targetPage - 1) * pageCount;
 		let endNum = (targetPage * pageCount) - 1;
 		// 遍历好友列表
-		friends.forEach( (key, value) => {
+		friends.forEach( async (key, value) => {
 			if (startNum <= seekNum && seekNum <= endNum) {
 				let friendUin = value;
 				// 判断是否需要加密
-				if (e.isGroup || !e.isMaster) friendUin = await common.codeString(friendUin);
+				if (e.isGroup || !e.isMaster) friendUin = await common.codeString(value);
 				// 加入转发消息
 				forwardMsg.push({
 					user_id: e.bot.uin,
