@@ -18,17 +18,17 @@ export class gainFriends extends plugin {
 	async getFriendList () {
 		let e = this.e;
 		// 重新载入好友
-		await Bot.reloadFriendList();
+		await e.bot.reloadFriendList();
 		// 获取全部好友
-		let friends = await Bot.fl;
+		let friends = await e.bot.fl;
 		// 开始, 每页个数
 		let seekNum = 0, pageCount = 10;
 		// 转发消息
 		let forwardMsg = [
 			{
-				user_id: Bot.uin,
-				nickname: Bot.nickname,
-				message: `※共计 ${Bot.fl.size} 位好友...`
+				user_id: e.bot.uin,
+				nickname: e.bot.nickname,
+				message: `※共计 ${e.bot.fl.size} 位好友...`
 			}
 		];
 		// 获取目标页数
@@ -42,15 +42,15 @@ export class gainFriends extends plugin {
 		let startNum = (targetPage - 1) * pageCount;
 		let endNum = (targetPage * pageCount) - 1;
 		// 遍历好友列表
-		Bot.fl.forEach( (key, value) => {
+		e.bot.fl.forEach( (key, value) => {
 			if (startNum <= seekNum && seekNum <= endNum) {
 				let friendUin = value;
 				// 判断是否需要加密
 				if (e.isGroup || !e.isMaster) friendUin = common.codeString(value);
 				// 加入转发消息
 				forwardMsg.push({
-					user_id: Bot.uin,
-					nickname: Bot.nickname,
+					user_id: e.bot.uin,
+					nickname: e.bot.nickname,
 					message: [
 						key.remark,
 						segment.image(`https://q1.qlogo.cn/g?b=qq&s=100&nk=${value}`),
@@ -62,7 +62,7 @@ export class gainFriends extends plugin {
 		});
 		// 制作转发消息
 		if (forwardMsg.length > 1) {
-			forwardMsg = await common.generateForwardMsg(e, `共计 ${Bot.fl.size} 位好友 (第${targetPage}页/共${Math.ceil(Bot.fl.size / pageCount)}页)`, forwardMsg);
+			forwardMsg = await common.generateForwardMsg(e, `共计 ${e.bot.fl.size} 位好友 (第${targetPage}页/共${Math.ceil(e.bot.fl.size / pageCount)}页)`, forwardMsg);
 			await e.reply(forwardMsg);
 		}
 		return true;
