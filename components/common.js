@@ -5,14 +5,21 @@ async function generateForwardMsg (e, title = false, forwardMsg = []) {
 	// 频道则返回
 	if (e.QQGuild) return forwardMsg;
 	
+	if (!Array.isArray(forwardMsg)) forwardMsg = [forwardMsg];
+	
 	if (e.isGroup) forwardMsg = await e.group.makeForwardMsg(forwardMsg);
 	else forwardMsg = await e.friend.makeForwardMsg(forwardMsg);
 	
 	if (title) {
-		forwardMsg.data = forwardMsg.data
-		.replace(/\n/g, "")
-		.replace(/<title color="#777777" size="26">(.+?)<\/title>/g, "___")
-		.replace(/(___)+/g, `<title color="#777777" size="26">${title}</title>`);
+		if (typeof forwardMsg.data === "object") {
+			let detail = forwardMsg.data?.meta?.detail;
+			if (detail) detail.news = [{ text: title }];
+		} else {
+			forwardMsg.data = forwardMsg.data
+			.replace(/\n/g, "")
+			.replace(/<title color="#777777" size="26">(.+?)<\/title>/g, "___")
+			.replace(/(___)+/g, `<title color="#777777" size="26">${title}</title>`);
+		}
 	}
 	
 	return forwardMsg;
