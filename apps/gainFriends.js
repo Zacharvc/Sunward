@@ -9,7 +9,7 @@ export class gainFriends extends plugin {
 			name: "gainFriends",
 			event: "message",
 			rule: [{
-				reg: "^#*(获取)*好友列表([\d]+)$",
+				reg: "^#*(获取)*好友列表([\d]+)?",
 				fnc: "getFriendList"
 			}]
 		});
