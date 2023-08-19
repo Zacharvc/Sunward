@@ -30,7 +30,8 @@ async function codeString (rawStr, replaceTo = "*") {
 	if (!rawStr) return false;
 	rawStr = String(rawStr);
 	if (rawStr.length <= 2) return replaceTo + replaceTo;
-	let startAim = rawStr.length / 3, endAim = startAim * 2;
+	let startAim = rawStr.length / 3;
+	let endAim = startAim * 2;
 	let replaceStr = function (length) {
 		let tempStr = "";
 		for (let i = 0; i < Number(length); i++) tempStr += replaceTo;
