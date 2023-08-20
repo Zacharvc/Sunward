@@ -8,6 +8,7 @@ export class gainAnyList extends plugin {
 		super({
 			name: "gainAnyList",
 			event: "message",
+			dsc: "获取机器人账号相关信息列表",
 			rule: [{
 				reg: "^#*(获取)*好友列表([\d]+)?",
 				fnc: "getFriendList"
@@ -46,22 +47,28 @@ export class gainAnyList extends plugin {
 		let startNum = (targetPage - 1) * pageCount;
 		let endNum = (targetPage * pageCount) - 1;
 		// 遍历好友列表
-		await friends.forEach( async (key, value) => {
+		await friends.forEach( async (value, key) => {
 			if (startNum <= seekNum && seekNum <= endNum) {
-				let friendUin = value;
+				let friendUin = key;
 				// 判断是否需要加密
-				if (e.isGroup || !e.isMaster) friendUin = await common.codeString(value);
+				if (e.isGroup || !e.isMaster) friendUin = await common.codeString(key);
 				// 加入转发消息
-				if (Number(value) !== Number(e.bot.uin)) forwardMsg.push({
+				let tempMsg = {
 					user_id: e.bot.uin,
 					nickname: e.bot.nickname,
-					message: [
-						segment.image(`https://q1.qlogo.cn/g?b=qq&s=100&nk=${value}`),
-						`\n账号：${friendUin}`,
-						`\n昵称：${key.nickname}`,
-						`\n备注：${key.remark}`
-					]
-				});
+					message: []
+				};
+				if (Number(key) !== Number(e.bot.uin)) tempMsg.message = [
+					`\n账号：${friendUin}`,
+					`\n昵称：${value.nickname}`,
+					`\n备注：${value.remark}`
+				];
+				else tempMsg.message = [
+					`\n账号：${key}`
+				];
+				// 添加图像
+				tempMsg.message.unshift(segment.image(`https://q1.qlogo.cn/g?b=qq&s=100&nk=${key}`));
+				forwardMsg.push(tempMsg);
 			}
 			seekNum++;
 		});
@@ -102,20 +109,20 @@ export class gainAnyList extends plugin {
 		let startNum = (targetPage - 1) * pageCount;
 		let endNum = (targetPage * pageCount) - 1;
 		// 遍历群列表
-		await groups.forEach( async (key, value) => {
+		await groups.forEach( async (value, key) => {
 			if (startNum <= seekNum && seekNum <= endNum) {
-				let groupUin = value;
+				let groupUin = key;
 				// 判断是否需要加密
-				if (e.isGroup || !e.isMaster) groupUin = await common.codeString(value);
+				if (e.isGroup || !e.isMaster) groupUin = await common.codeString(key);
 				// 加入转发消息
 				forwardMsg.push({
 					user_id: e.bot.uin,
 					nickname: e.bot.nickname,
 					message: [
-						segment.image(`https://p.qlogo.cn/gh/${value}/${value}/100`),
+						segment.image(`https://p.qlogo.cn/gh/${key}/${key}/100`),
 						`\n群号：${groupUin}`,
-						`\n名称：${key.group_name}`,
-						`\n人数：${key.member_count}/${key.max_member_count}`
+						`\n名称：${value.group_name}`,
+						`\n人数：${value.member_count}/${value.max_member_count}`
 					]
 				});
 			}
