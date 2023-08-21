@@ -3,8 +3,9 @@
 import plugin from "../../../lib/plugins/plugin.js";
 import common from "../components/common.js";
 
+// 临时数据盒
 let tempData = {};
-
+// 类类类md5方法
 let codeNumber = function (int) {
 	if (typeof int !== "number") return 0;
 	int = String(int * 666 / 777 * 0.618);
@@ -85,17 +86,16 @@ export class gainAnyList extends plugin {
 				else tempData.code2QQ[codeRes] = [key];
 				// 判断是否为自身
 				if (Number(key) !== Number(e.bot.uin)) tempMsg.message = [
-					`${codeRes}\n`,
+					`编码｜${codeRes}\n`,
 					segment.image(`https://q1.qlogo.cn/g?b=qq&s=100&nk=${key}`),
-					`\n【账号】${friendUin}`,
-					`\n【昵称】${value.nickname}`,
-					`\n【备注】${value.remark}`
+					`\n账号｜${friendUin}`,
+					`\n昵称｜${value.nickname}`,
+					`\n备注｜${value.remark}`
 				];
 				else tempMsg.message = [
-					`目前使用账号\n`,
 					segment.image(`https://q1.qlogo.cn/g?b=qq&s=100&nk=${key}`),
-					`\n【账号】${key}`,
-					`\n【昵称】${value.nickname}`
+					`\n账号｜${key}`,
+					`\n昵称｜${value.nickname}`
 				];
 				forwardMsg.push(tempMsg);
 			}
@@ -153,11 +153,11 @@ export class gainAnyList extends plugin {
 					user_id: e.bot.uin,
 					nickname: e.bot.nickname,
 					message: [
-						`${codeRes}\n`,
+						`编码｜${codeRes}\n`,
 						segment.image(`https://p.qlogo.cn/gh/${key}/${key}/100`),
-						`\n【群号】${groupUin}`,
-						`\n【群名】${value.group_name}`,
-						`\n【人数】${value.member_count}/${value.max_member_count}`
+						`\n群号｜${groupUin}`,
+						`\n群名｜${value.group_name}`,
+						`\n人数｜${value.member_count}/${value.max_member_count}`
 					]
 				});
 			}
