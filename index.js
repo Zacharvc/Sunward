@@ -2,15 +2,11 @@
 
 // 导入包
 import fs from "node:fs";
-import YAML from "yaml";
-
-// 插件目录名称
-const plugin = "Sunward";
+import $Package from "./components/package.js";
+import pluginRootDir from "./components/path.js";
 
 // 获取插件目录文件
-const appFiles = fs.readdirSync(`./plugins/${plugin}/apps`).filter( (file) => file.endsWith(".js") );
-// 读取package.yaml
-const $Package = YAML.parse(fs.readFileSync(`./plugins/${plugin}/package.yaml`, "utf-8"));
+const appFiles = fs.readdirSync(`${pluginRootDir}/apps`).filter( (file) => file.endsWith(".js") );
 // 插件名称
 const pluginName = $Package.name;
 const pluginNameCn = $Package.cNname;
@@ -24,7 +20,7 @@ let welcomeTips = [
 	`------------------------`,
 	`欢迎使用${pluginNameCn}(${pluginName})插件`,
 	`当前版本：${pluginVersion}`,
-	`您的使用就是对我莫大的鼓励！`
+	`您的支持是我更新的动力！`
 ];
 
 async function allInitial (Client) {
@@ -42,7 +38,10 @@ async function allInitial (Client) {
 		let apps = {};
 		for (let num in appFiles) {
 			if (ret[num].status !== "fulfilled") {
-				logger.error(logger.red(`载入组件时出错:${appFiles[num]}`));
+				logger.error(`载入组件时出错:${logger.red(appFiles[num])}`);
+				logger.error(logger.red("------------------------"));
+				logger.error(ret[num].reason);
+				logger.error(logger.red("------------------------"));
 				continue;
 			}
 			Object.keys(ret[num].value).forEach( (app) => {
