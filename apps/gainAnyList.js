@@ -5,24 +5,6 @@ import common from "../components/common.js";
 
 // 临时数据盒
 let tempData = {};
-// 类类类md5方法
-let codeNumber = function (int) {
-	if (typeof int !== "number") return 0;
-	int = String(int * 666 / 777 * 0.618);
-	int = int
-		.replace(/\./g, "n")
-		.replace(/0/g, "a")
-		.replace(/1/g, "A")
-		.replace(/2/g, "aA")
-		.replace(/3/g, "b")
-		.replace(/4/g, "B")
-		.replace(/5/, "c")
-		.replace(/5/g, "C")
-		.replace(/Aa/g, "6")
-		.slice(0, 5)
-		.toUpperCase();
-	return "@" + int;
-};
 
 export class gainAnyList extends plugin {
 	constructor() {
@@ -38,6 +20,25 @@ export class gainAnyList extends plugin {
 				fnc: "getGroupList"
 			}]
 		});
+	};
+	
+	codeNumber (int) {
+		if (typeof int !== "number") return 0;
+		int = String(int * 666 / 777 * 0.618);
+		int = int
+			.replace(/\./g, "n")
+			.replace(/0/g, "a")
+			.replace(/1/g, "A")
+			.replace(/2/g, "aA")
+			.replace(/3/g, "b")
+			.replace(/4/g, "B")
+			.replace(/5/, "c")
+			.replace(/ac/g, "x")
+			.replace(/5/g, "C")
+			.replace(/Aa/g, "6")
+			.slice(0, 5)
+			.toUpperCase();
+		return "@" + int;
 	};
 	
 	async getFriendList () {
@@ -171,4 +172,5 @@ export class gainAnyList extends plugin {
 		// 结束
 		return true;
 	};
+	
 };
