@@ -94,7 +94,7 @@ export class gainAnyList extends plugin {
 				else tempMsg.message = [
 					`目前使用账号\n`,
 					segment.image(`https://q1.qlogo.cn/g?b=qq&s=100&nk=${key}`),
-					`\n【账号】${key}`
+					`\n【账号】${key}`,
 					`\n【昵称】${value.nickname}`
 				];
 				forwardMsg.push(tempMsg);
@@ -153,7 +153,7 @@ export class gainAnyList extends plugin {
 					user_id: e.bot.uin,
 					nickname: e.bot.nickname,
 					message: [
-						`${codeRes}\n`
+						`${codeRes}\n`,
 						segment.image(`https://p.qlogo.cn/gh/${key}/${key}/100`),
 						`\n【群号】${groupUin}`,
 						`\n【群名】${value.group_name}`,
