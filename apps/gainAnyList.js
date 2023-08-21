@@ -22,7 +22,7 @@ export class gainAnyList extends plugin {
 		});
 	};
 	
-	codeNumber (int) {
+	async codeNumber (int) {
 		if (typeof int !== "number") return 0;
 		int = String(int * 666 / 777 * 0.618);
 		int = int
@@ -82,7 +82,7 @@ export class gainAnyList extends plugin {
 				};
 				// 临时存储
 				tempData.code2QQ = {};
-				let codeRes = codeNumber(key);
+				let codeRes = await codeNumber(key);
 				if (Array.isArray(tempData.code2QQ[codeRes])) tempData.code2QQ[codeRes].push(key);
 				else tempData.code2QQ[codeRes] = [key];
 				// 判断是否为自身
@@ -147,7 +147,7 @@ export class gainAnyList extends plugin {
 				// 加入转发消息
 				// 临时存储
 				tempData.code2GroupID = {};
-				let codeRes = codeNumber(key);
+				let codeRes = await codeNumber(key);
 				if (Array.isArray(tempData.code2GroupID[codeRes])) tempData.code2GroupID[codeRes].push(key);
 				else tempData.code2GroupID[codeRes] = [key];
 				forwardMsg.push({
