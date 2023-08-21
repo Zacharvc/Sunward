@@ -25,12 +25,16 @@ git clone --depth=1 https://gitee.com/yoolan/Sunward.git ./plugins/Sunward/
 
 <details>
   <summary>已实现的功能</summary>
+
 1. 查看好友列表
 2. 查看群聊列表
+
 </details>
 
 <details>
   <summary>待实现的功能</summary>
+
 1. 监测好友请求
 2. 监测加群邀请
+
 </details>
