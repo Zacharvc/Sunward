@@ -3,7 +3,7 @@
 // 导入包
 import fs from "node:fs";
 import $Package from "./components/package.js";
-import pluginRootDir from "./components/path.js";
+import { pluginRootDir } from "./components/path.js";
 
 // 获取插件目录文件
 const appFiles = fs.readdirSync(`${pluginRootDir}/apps`).filter( (file) => file.endsWith(".js") );
