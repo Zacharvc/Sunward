@@ -1,10 +1,15 @@
 "use strict";
 
+import fs from "node:fs";
 import plugin from "../../../lib/plugins/plugin.js";
+import config from "../../../lib/config/config.js";
 import common from "../components/common.js";
 
 // 临时数据盒
 let tempData = {};
+
+// 机器人管理员
+let botManagers = config.masterQQ;
 
 export class gainAnyList extends plugin {
 	constructor() {
@@ -20,6 +25,12 @@ export class gainAnyList extends plugin {
 				fnc: "getGroupList"
 			}]
 		});
+	};
+	
+	getProjectPackage (key) {
+		let thisPackage = JSON.parse(fs.readFileSync("./package.json", "utf-8"));
+		if (Object.keys(thisPackage).includes(key)) return thisPackage[key];
+		return "undefined";
 	};
 	
 	codeNumber (int) {
@@ -42,9 +53,9 @@ export class gainAnyList extends plugin {
 			.replace(/B/g, "3")
 			.replace(/c/g, "7")
 			.replace(/C/g, "23")
-			.slice(0, 5)
+			.slice(0, 6)
 			.toUpperCase();
-		return "#" + int + "#";
+		return "#" + int;
 	};
 	
 	async getFriendList () {
@@ -91,18 +102,26 @@ export class gainAnyList extends plugin {
 				let codeRes = this.codeNumber(key);
 				if (Array.isArray(tempData.code2QQ[codeRes])) tempData.code2QQ[codeRes].push(key);
 				else tempData.code2QQ[codeRes] = [key];
+				let relevant = function () {
+					if (botManagers.includes(Number(key))) return "管理员";
+					return "好友"
+				}();
 				// 判断是否为自身
 				if (Number(key) !== Number(e.bot.uin)) tempMsg.message = [
 					`${codeRes}\n`,
 					segment.image(`https://q1.qlogo.cn/g?b=qq&s=100&nk=${key}`),
-					`\n账号｜${friendUin}`,
-					`\n昵称｜${value.nickname}`,
-					`\n备注｜${value.remark}`
+					`\n账号|${friendUin}`,
+					`\n昵称|${value.nickname}`,
+					`\n备注|${value.remark}`,
+					`\n联系|${relevant}`
 				];
 				else tempMsg.message = [
 					segment.image(`https://q1.qlogo.cn/g?b=qq&s=100&nk=${key}`),
-					`\n账号｜${key}`,
-					`\n昵称｜${value.nickname}`
+					`\n账号|${key}`,
+					`\n昵称|${value.nickname}`,
+					`\n项目|${this.getProjectPackage("name")}`,
+					`\n版本|${this.getProjectPackage("version")}`,
+					`\n作者|${this.getProjectPackage("author")}`
 				];
 				forwardMsg.push(tempMsg);
 			}
@@ -162,9 +181,9 @@ export class gainAnyList extends plugin {
 					message: [
 						`${codeRes}\n`,
 						segment.image(`https://p.qlogo.cn/gh/${key}/${key}/100`),
-						`\n群号｜${groupUin}`,
-						`\n群名｜${value.group_name}`,
-						`\n人数｜${value.member_count}/${value.max_member_count}`
+						`\n群号|${groupUin}`,
+						`\n群名|${value.group_name}`,
+						`\n人数|${value.member_count}/${value.max_member_count}`
 					]
 				});
 			}
