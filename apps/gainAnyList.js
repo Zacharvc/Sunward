@@ -3,6 +3,26 @@
 import plugin from "../../../lib/plugins/plugin.js";
 import common from "../components/common.js";
 
+let tempData = {};
+
+let codeNumber = function (int) {
+	if (typeof int !== "number") return 0;
+	int = String(int * 666 / 777 * 0.618);
+	int = int
+		.replace(/\./g, "n")
+		.replace(/0/g, "a")
+		.replace(/1/g, "A")
+		.replace(/2/g, "aA")
+		.replace(/3/g, "b")
+		.replace(/4/g, "B")
+		.replace(/5/, "c")
+		.replace(/5/g, "C")
+		.replace(/Aa/g, "6")
+		.slice(0, 5)
+		.toUpperCase();
+	return "@" + int;
+};
+
 export class gainAnyList extends plugin {
 	constructor() {
 		super({
@@ -32,7 +52,7 @@ export class gainAnyList extends plugin {
 			{
 				user_id: e.bot.uin,
 				nickname: e.bot.nickname,
-				message: `※共计 ${friends.size} 位好友`
+				message: `共计 ${friends.size} 位好友`
 			}
 		];
 		// 获取目标页数
@@ -58,16 +78,25 @@ export class gainAnyList extends plugin {
 					nickname: e.bot.nickname,
 					message: []
 				};
+				// 临时存储
+				tempData.code2QQ = {};
+				let codeRes = codeNumber(key);
+				if (Array.isArray(tempData.code2QQ[codeRes])) tempData.code2QQ[codeRes].push(key);
+				else tempData.code2QQ[codeRes] = [key];
+				// 判断是否为自身
 				if (Number(key) !== Number(e.bot.uin)) tempMsg.message = [
-					`\n账号：${friendUin}`,
-					`\n昵称：${value.nickname}`,
-					`\n备注：${value.remark}`
+					`${codeRes}\n`,
+					segment.image(`https://q1.qlogo.cn/g?b=qq&s=100&nk=${key}`),
+					`\n【账号】${friendUin}`,
+					`\n【昵称】${value.nickname}`,
+					`\n【备注】${value.remark}`
 				];
 				else tempMsg.message = [
-					`\n账号：${key}`
+					`目前使用账号\n`,
+					segment.image(`https://q1.qlogo.cn/g?b=qq&s=100&nk=${key}`),
+					`\n【账号】${key}`
+					`\n【昵称】${value.nickname}`
 				];
-				// 添加图像
-				tempMsg.message.unshift(segment.image(`https://q1.qlogo.cn/g?b=qq&s=100&nk=${key}`));
 				forwardMsg.push(tempMsg);
 			}
 			seekNum++;
@@ -76,7 +105,7 @@ export class gainAnyList extends plugin {
 		if (forwardMsg.length > 1) {
 			forwardMsg = await common.generateForwardMsg(e, `共计 ${friends.size} 位好友 (第${targetPage}页/共${Math.ceil(friends.size / pageCount)}页)`, forwardMsg);
 			await e.reply(forwardMsg);
-		} else e.reply("※没有找到符合条件的好友", true);
+		} else e.reply("没有找到符合条件的好友", true);
 		// 结束
 		return true;
 	};
@@ -94,7 +123,7 @@ export class gainAnyList extends plugin {
 			{
 				user_id: e.bot.uin,
 				nickname: e.bot.nickname,
-				message: `※共计 ${groups.size} 个群聊`
+				message: `共计 ${groups.size} 个群聊`
 			}
 		];
 		// 获取目标页数
@@ -115,14 +144,20 @@ export class gainAnyList extends plugin {
 				// 判断是否需要加密
 				if (e.isGroup || !e.isMaster) groupUin = await common.codeString(key);
 				// 加入转发消息
+				// 临时存储
+				tempData.code2GroupID = {};
+				let codeRes = codeNumber(key);
+				if (Array.isArray(tempData.code2GroupID[codeRes])) tempData.code2GroupID[codeRes].push(key);
+				else tempData.code2GroupID[codeRes] = [key];
 				forwardMsg.push({
 					user_id: e.bot.uin,
 					nickname: e.bot.nickname,
 					message: [
+						`${codeRes}\n`
 						segment.image(`https://p.qlogo.cn/gh/${key}/${key}/100`),
-						`\n群号：${groupUin}`,
-						`\n名称：${value.group_name}`,
-						`\n人数：${value.member_count}/${value.max_member_count}`
+						`\n【群号】${groupUin}`,
+						`\n【群名】${value.group_name}`,
+						`\n【人数】${value.member_count}/${value.max_member_count}`
 					]
 				});
 			}
@@ -132,7 +167,7 @@ export class gainAnyList extends plugin {
 		if (forwardMsg.length > 1) {
 			forwardMsg = await common.generateForwardMsg(e, `共计 ${groups.size} 个群聊 (第${targetPage}页/共${Math.ceil(groups.size / pageCount)}页)`, forwardMsg);
 			await e.reply(forwardMsg);
-		} else e.reply("※没有找到符合条件的群聊", true);
+		} else e.reply("没有找到符合条件的群聊", true);
 		// 结束
 		return true;
 	};
