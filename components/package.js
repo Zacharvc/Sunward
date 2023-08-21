@@ -5,6 +5,6 @@ import YAML from "yaml";
 import { pluginRootDir } from "./path.js";
 
 // 读取package.yaml
-const $Package = YAML.parse(fs.readFileSync(`${pluginRootDir}/package.yaml`, "utf-8"));
+const PackageInfo = await YAML.parse(fs.readFileSync(`${pluginRootDir}/package.yaml`, "utf-8"));
 
-export default { $Package };
+export default PackageInfo;
