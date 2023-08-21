@@ -5,6 +5,8 @@ import fs from "node:fs";
 import $Package from "./components/package.js";
 import { pluginRootDir } from "./components/path.js";
 
+logger.mark($Package);
+
 // 获取插件目录文件
 const appFiles = fs.readdirSync(`${pluginRootDir}/apps`).filter( (file) => file.endsWith(".js") );
 // 插件名称
