@@ -36,9 +36,15 @@ export class gainAnyList extends plugin {
 			.replace(/ac/g, "x")
 			.replace(/5/g, "C")
 			.replace(/Aa/g, "6")
+			.replace(/a/g, "9")
+			.replace(/b/g, "2")
+			.replace(/A/g, "0")
+			.replace(/B/g, "3")
+			.replace(/c/g, "7")
+			.replace(/C/g, "23")
 			.slice(0, 5)
 			.toUpperCase();
-		return "@" + int;
+		return "#" + int + "#";
 	};
 	
 	async getFriendList () {
@@ -87,7 +93,7 @@ export class gainAnyList extends plugin {
 				else tempData.code2QQ[codeRes] = [key];
 				// 判断是否为自身
 				if (Number(key) !== Number(e.bot.uin)) tempMsg.message = [
-					`编码｜${codeRes}\n`,
+					`${codeRes}\n`,
 					segment.image(`https://q1.qlogo.cn/g?b=qq&s=100&nk=${key}`),
 					`\n账号｜${friendUin}`,
 					`\n昵称｜${value.nickname}`,
@@ -154,7 +160,7 @@ export class gainAnyList extends plugin {
 					user_id: e.bot.uin,
 					nickname: e.bot.nickname,
 					message: [
-						`编码｜${codeRes}\n`,
+						`${codeRes}\n`,
 						segment.image(`https://p.qlogo.cn/gh/${key}/${key}/100`),
 						`\n群号｜${groupUin}`,
 						`\n群名｜${value.group_name}`,
