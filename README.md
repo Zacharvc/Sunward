@@ -1,6 +1,7 @@
 # Sunward
 
 * 仅仅是一个[Yunzai v3](https://gitee.com/le-niao/Yunzai-Bot)的插件！
+* Sunward插件目前处于测试阶段，请酌情使用！
 
 ## 安装方法
 
@@ -20,4 +21,10 @@ git clone --depth=1 https://github.com/Zacharvc/Sunward.git ./plugins/Sunward/
 git clone --depth=1 https://gitee.com/yoolan/Sunward.git ./plugins/Sunward/
 ```
 
-# 项目目前处于测试阶段，请注意！
+## 实现功能
+
+<details>
+  <summary>已实现的功能</summary>
+1.查看好友列表
+2.查看群聊列表
+</details>
