@@ -127,7 +127,7 @@ export class gainAnyList extends plugin {
 			seekNum++;
 		});
 		// 存储Redis
-		await redis.set("Sunward:friends-code", tempRedis);
+		await redis.set("Sunward:friends-code", JSON.stringify(tempRedis));
 		// 制作转发消息
 		if (forwardMsg.length > 1) {
 			forwardMsg = await common.generateForwardMsg(e, `共计 ${friends.size} 位好友 (第${targetPage}页/共${Math.ceil(friends.size / pageCount)}页)`, forwardMsg);
@@ -191,7 +191,7 @@ export class gainAnyList extends plugin {
 			seekNum++;
 		});
 		// 存储Redis
-		await redis.set("Sunward:groups-code", tempRedis);
+		await redis.set("Sunward:groups-code", JSON.stringify(tempRedis));
 		// 制作转发消息
 		if (forwardMsg.length > 1) {
 			forwardMsg = await common.generateForwardMsg(e, `共计 ${groups.size} 个群聊 (第${targetPage}页/共${Math.ceil(groups.size / pageCount)}页)`, forwardMsg);

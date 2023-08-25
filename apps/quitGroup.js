@@ -16,7 +16,7 @@ export class quitGroup extends plugin {
 	async quitTargetGroup () {
 		let e = this.e;
 		// 获取Redis
-		let group2code = await redis.get("Sunward:groups-code");
+		let group2code = JSON.parse(await redis.get("Sunward:groups-code"));
 		// 是否存在群聊
 		let match = e.msg.match(/#*退出群(聊)*#([\d]+)$/)[2];
 		let targetGroup = "#" + match;
