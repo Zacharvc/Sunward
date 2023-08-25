@@ -5,9 +5,6 @@ import plugin from "../../../lib/plugins/plugin.js";
 import config from "../../../lib/config/config.js";
 import common from "../components/common.js";
 
-// 临时数据盒
-let tempData = {};
-
 // 机器人管理员
 let botManagers = config.masterQQ;
 
@@ -85,10 +82,13 @@ export class gainAnyList extends plugin {
 		// 计算开始与结尾
 		let startNum = (targetPage - 1) * pageCount;
 		let endNum = (targetPage * pageCount) - 1;
+		// Redis
+		let tempRedis = {};
 		// 遍历好友列表
 		await friends.forEach( async (value, key) => {
 			if (startNum <= seekNum && seekNum <= endNum) {
 				let friendUin = key;
+				let codeRes = this.codeNumber(key);
 				// 判断是否需要加密
 				if (e.isGroup || !e.isMaster) friendUin = await common.codeString(key);
 				// 加入转发消息
@@ -97,11 +97,10 @@ export class gainAnyList extends plugin {
 					nickname: e.bot.nickname,
 					message: []
 				};
-				// 临时存储
-				tempData.code2QQ = {};
-				let codeRes = this.codeNumber(key);
-				if (Array.isArray(tempData.code2QQ[codeRes])) tempData.code2QQ[codeRes].push(key);
-				else tempData.code2QQ[codeRes] = [key];
+				// 存储数据
+				if (!tempRedis[codeRes]) tempRedis[codeRes] = [key];
+				else if (Array.isArray(tempRedis[codeRes])) tempRedis[codeRes].push(key);
+				// 联系判断
 				let relevant = function () {
 					if (botManagers.includes(Number(key))) return "管理员";
 					return "好友"
@@ -127,6 +126,8 @@ export class gainAnyList extends plugin {
 			}
 			seekNum++;
 		});
+		// 存储Redis
+		await redis.set("Sunward:friends-code", tempRedis);
 		// 制作转发消息
 		if (forwardMsg.length > 1) {
 			forwardMsg = await common.generateForwardMsg(e, `共计 ${friends.size} 位好友 (第${targetPage}页/共${Math.ceil(friends.size / pageCount)}页)`, forwardMsg);
@@ -163,18 +164,18 @@ export class gainAnyList extends plugin {
 		// 计算开始与结尾
 		let startNum = (targetPage - 1) * pageCount;
 		let endNum = (targetPage * pageCount) - 1;
+		// Redis
+		let tempRedis = {};
 		// 遍历群列表
 		await groups.forEach( async (value, key) => {
 			if (startNum <= seekNum && seekNum <= endNum) {
 				let groupUin = key;
+				let codeRes = this.codeNumber(key);
 				// 判断是否需要加密
 				if (e.isGroup || !e.isMaster) groupUin = await common.codeString(key);
-				// 加入转发消息
-				// 临时存储
-				tempData.code2GroupID = {};
-				let codeRes = this.codeNumber(key);
-				if (Array.isArray(tempData.code2GroupID[codeRes])) tempData.code2GroupID[codeRes].push(key);
-				else tempData.code2GroupID[codeRes] = [key];
+				// 存储数据
+				if (!tempRedis[codeRes]) tempRedis[codeRes] = [key];
+				else if (Array.isArray(tempRedis[codeRes])) tempRedis[codeRes].push(key);
 				forwardMsg.push({
 					user_id: e.bot.uin,
 					nickname: e.bot.nickname,
@@ -189,6 +190,8 @@ export class gainAnyList extends plugin {
 			}
 			seekNum++;
 		});
+		// 存储Redis
+		await redis.set("Sunward:groups-code", tempRedis);
 		// 制作转发消息
 		if (forwardMsg.length > 1) {
 			forwardMsg = await common.generateForwardMsg(e, `共计 ${groups.size} 个群聊 (第${targetPage}页/共${Math.ceil(groups.size / pageCount)}页)`, forwardMsg);
