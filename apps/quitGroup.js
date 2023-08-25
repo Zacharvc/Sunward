@@ -7,7 +7,7 @@ export class quitGroup extends plugin {
 			event: "message",
 			dsc: "退出群聊",
 			rule: [{
-				reg: "#*退出群(聊)*#([\d]+)$",
+				reg: "#*退出群(聊)*#([\d]+)",
 				fnc: "quitTargetGroup"
 			}]
 		});
@@ -15,6 +15,8 @@ export class quitGroup extends plugin {
 	
 	async quitTargetGroup () {
 		let e = this.e;
+		// 权限判断
+		if (!e.isMaster) return;
 		// 获取Redis
 		let group2code = JSON.parse(await redis.get("Sunward:groups-code"));
 		// 是否存在群聊
