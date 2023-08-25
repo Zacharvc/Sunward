@@ -26,7 +26,7 @@ export class quitGroup extends plugin {
 			return;
 		}
 		let targetGroup = "#" + match;
-		if (!Object.keys(group2code).contains(targetGroup)) {
+		if (!Object.keys(group2code).includes(targetGroup)) {
 			e.reply(`没有找到符合条件的群聊：${targetGroup}`, true);
 			return;
 		}
