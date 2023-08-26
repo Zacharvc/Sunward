@@ -19,7 +19,7 @@ export class quitGroup extends plugin {
 		if (!e.isMaster) return;
 		// 匹配目标
 		let reg = new RegExp(/^#*退出群聊*\s*(.*)/, "i");
-		let groups = msg.match(reg)[1].split(" ");
+		let groups = e.msg.match(reg)[1].split(" ");
 		// 是否有目标
 		if (!group || groups.length <= 0) e.reply("请发送【#退出群聊 + 对应群号或者对应码】", true);
 		// 遍历目标
