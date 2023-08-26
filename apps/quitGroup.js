@@ -71,7 +71,7 @@ export class quitGroup extends plugin {
 			target = group2code[targetGroup];
 		} else {
 			logger.mark("targetGroup:", target);
-			if (!groups.includes(Number(target))) return `没有找到相符群聊：${targetGroup}`;
+			if (!groups.has(Number(target))) return `没有找到相符群聊：${targetGroup}`;
 		}
 		// 是否为当前群聊
 		if (e.isGroup && e?.group_id == target) return "请在私聊或其他群里中使用";
