@@ -20,11 +20,15 @@ export class quitGroup extends plugin {
 		// 匹配目标
 		let reg = new RegExp(/^#*退出群聊*\s*(.*)/, "i");
 		let groups = e.msg.match(reg)[1].split(" ");
+		logger.mark(groups)
 		// 是否有目标
-		if (!groups || groups.length <= 0) e.reply("请发送【#退出群聊 + 对应群号或者对应码】", true);
+		if (!groups || groups.length <= 0) {
+			e.reply("请发送【#退出群聊 + 对应群号或者对应码】", true);
+			return;
+		}
 		// 遍历目标
 		let quitNum = 0;
-		groups.forEach( async (group) => {
+		await groups.forEach( async (group) => {
 			let replyMsg = await this.quitTargetGroup(e, group);
 			await e.reply(replyMsg, false);
 			quitNum++;
@@ -39,6 +43,8 @@ export class quitGroup extends plugin {
 		let target = targetGroup;
 		// 重新载入群聊
 		await e.bot.reloadGroupList();
+		// 加载群列表
+		let groups = Object.keys(e.bot.gl);
 		// 是否存在群聊
 		if (String(targetGroup).startsWith("G")) {
 			// 获取Redis
@@ -48,7 +54,7 @@ export class quitGroup extends plugin {
 			//
 			target = group2code[targetGroup];
 		} else {
-			if (!e.bot.gl.includes(Number(target))) return `没有找到符合群聊：${targetGroup}`;
+			if (!groups.includes(Number(target))) return `没有找到符合群聊：${targetGroup}`;
 		}
 		// 是否为当前群聊
 		if (e.isGroup && e?.group_id == target) return "请在私聊或其他群里中使用";
