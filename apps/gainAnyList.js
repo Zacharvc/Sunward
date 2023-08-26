@@ -60,12 +60,12 @@ export class gainAnyList extends plugin {
 		// Redis
 		let tempRedis = {};
 		// 遍历好友列表
-		await friends.forEach( async (value, key) => {
+		friends.forEach( async (value, key) => {
 			if (startNum <= seekNum && seekNum <= endNum) {
 				let friendUin = key;
-				let codeRes = `F${await common.codeByte(key, 6)}`;
+				let codeRes = `F${common.codeByte(key, 6)}`;
 				// 判断是否需要加密
-				if (e.isGroup || !e.isMaster) friendUin = await common.codeString(key);
+				if (e.isGroup || !e.isMaster) friendUin = common.codeString(key);
 				// 加入转发消息
 				let tempMsg = {
 					user_id: e.bot.uin,
@@ -115,7 +115,7 @@ export class gainAnyList extends plugin {
 		// 存储Redis
 		await redis.set("Sunward:friends-code", JSON.stringify(tempRedis));
 		// 制作转发消息
-		if (await forwardMsg.length > 1) {
+		if (forwardMsg.length > 1) {
 			forwardMsg = await common.generateForwardMsg(e, `共计 ${friends.size} 位好友 (第${targetPage}页/共${Math.ceil(friends.size / pageCount)}页)`, forwardMsg);
 			await e.reply(forwardMsg);
 		} else e.reply("没有找到符合条件的好友", true);
@@ -153,12 +153,12 @@ export class gainAnyList extends plugin {
 		// Redis
 		let tempRedis = {};
 		// 遍历群列表
-		await groups.forEach( async (value, key) => {
+		groups.forEach( async (value, key) => {
 			if (startNum <= seekNum && seekNum <= endNum) {
 				let groupUin = key;
-				let codeRes = `G${await common.codeByte(key, 6)}`;
+				let codeRes = `G${common.codeByte(key, 6)}`;
 				// 判断是否需要加密
-				if (e.isGroup || !e.isMaster) groupUin = await common.codeString(key);
+				if (e.isGroup || !e.isMaster) groupUin = common.codeString(key);
 				// 存储数据
 				if (!tempRedis[codeRes]) tempRedis[codeRes] = key;
 				else {
@@ -191,7 +191,7 @@ export class gainAnyList extends plugin {
 		// 存储Redis
 		await redis.set("Sunward:groups-code", JSON.stringify(tempRedis));
 		// 制作转发消息
-		if (await forwardMsg.length > 1) {
+		if (forwardMsg.length > 1) {
 			forwardMsg = await common.generateForwardMsg(e, `共计 ${groups.size} 个群聊 (第${targetPage}页/共${Math.ceil(groups.size / pageCount)}页)`, forwardMsg);
 			await e.reply(forwardMsg);
 		} else e.reply("没有找到符合条件的群聊", true);
