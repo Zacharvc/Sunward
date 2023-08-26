@@ -1,5 +1,8 @@
 "use strict";
 
+import plugin from "../../../lib/plugins/plugin.js";
+import common from "../components/common.js";
+
 export class quitGroup extends plugin {
 	constructor() {
 		super({
@@ -19,6 +22,7 @@ export class quitGroup extends plugin {
 		if (!e.isMaster) return;
 		// 匹配目标
 		let reg = new RegExp(/^#*退出群聊*\s*(.*)/, "i");
+		// 获取目标群聊
 		let groups = e.msg.match(reg)[1].split(" ");
 		// 是否有目标
 		if (!groups || groups.length <= 0 || (groups.length == 1 && groups[0] == "")) {
@@ -26,12 +30,24 @@ export class quitGroup extends plugin {
 			return;
 		}
 		// 遍历目标
+		let forwardMsgList = [];
 		await groups.forEach( async (group) => {
-			let replyMsg = await this.quitTargetGroup(e, group);
-			await e.reply(replyMsg, false);
+			let forwardMsg = {
+				user_id: e.bot.uin,
+				nickname: e.bot.nickname,
+				message: []
+			};
+			forwardMsg.message = await this.quitTargetGroup(e, group);
+			// 加入消息
+			forwardMsgList.push(forwardMsg);
 		});
-		// 多群提示
-		if (groups.length > 1) await e.reply("退出群聊命令执行完毕", true);
+		// 消息提示
+		if (forwardMsgList.length > 1) {
+			forwardMsgList = await common.generateForwardMsg(e, `执行结果`, forwardMsgList);
+			await e.reply(forwardMsgList);
+		} else {
+			await e.reply(forwardMsgList[0].message);
+		}
 	};
 	
 	async quitTargetGroup (event, targetGroup) {
