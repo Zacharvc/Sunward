@@ -41,7 +41,7 @@ async function codeString (rawStr, replaceTo = "*") {
 };
 
 // 伪哈希
-async function codeByte (rawStr, length) {
+function codeByte (rawStr, length) {
 	// 是否可使用
 	if (typeof rawStr == "undefined" || rawStr.length <= 0) return false;
 	if (!length || typeof length !== "number") length = 6;
