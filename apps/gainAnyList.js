@@ -60,8 +60,8 @@ export class gainAnyList extends plugin {
 		// Redis
 		let tempRedis = {};
 		// 遍历好友列表
-		for (let group of groups) {
-			let key = group[0], value = group[1];
+		for (let friend of friends) {
+			let key = friend[0], value = friend[1];
 			if (startNum <= seekNum && seekNum <= endNum) {
 				let friendUin = key;
 				let codeRes = `F${await common.codeByte(key, 5)}`;
