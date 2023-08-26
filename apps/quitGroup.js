@@ -26,7 +26,7 @@ export class quitGroup extends plugin {
 		let groups = e.msg.match(reg)[1].split(" ");
 		// 是否有目标
 		if (!groups || groups.length <= 0 || (groups.length == 1 && groups[0] == "")) {
-			e.reply("请发送【#退出群聊 + 对应群号或者对应码】", true);
+			this.reply("请发送【#退出群聊 + 对应群号或者对应码】", true);
 			return;
 		}
 		// 遍历目标
@@ -43,10 +43,10 @@ export class quitGroup extends plugin {
 		};
 		// 消息提示
 		if (forwardMsgList.length > 1) {
-			forwardMsgList = await common.generateForwardMsg(e, `退群功能执行结果`, forwardMsgList);
-			await e.reply(forwardMsgList);
+			forwardMsgList = await common.generateForwardMsg(e, `命令执行结果`, forwardMsgList);
+			await this.reply(forwardMsgList);
 		} else {
-			await e.reply(forwardMsgList[0].message);
+			await this.reply(forwardMsgList[0].message);
 		}
 	};
 	
@@ -62,21 +62,19 @@ export class quitGroup extends plugin {
 		let group2code = JSON.parse(await redis.get("Sunward:groups-code"));
 		// 是否存在群聊
 		if (String(targetGroup).startsWith("G")) {
-			//
-			logger.mark("group2code:", group2code);
 			// 查找群聊
-			if (!Object.keys(group2code).includes(targetGroup)) return `没有找到对应群聊：${targetGroup}`;
+			if (!Object.keys(group2code).includes(targetGroup)) return `对应码群聊不存在：${targetGroup}`;
 			// 确定目标
 			target = group2code[targetGroup];
 		} else {
-			if (!groups.has(Number(target))) return `没有找到相符群聊：${targetGroup}`;
+			if (!groups.has(Number(target))) return `指定群聊不存在：${targetGroup}`;
 		}
 		target = Number(target);
 		// 是否为当前群聊
-		if (e.isGroup && e?.group_id == target) return `请在私聊或其他群里中使用：${targetGroup}`;
+		if (e.isGroup && e?.group_id == target) return `退出本群请在私聊或其他群内使用：${targetGroup}`;
 		// 退出群聊
 		await e.bot.pickGroup(target).quit();
-		return `已退出群聊：${target}`;
+		return `已退出指定群聊：${target}`;
 	};
 	
 };

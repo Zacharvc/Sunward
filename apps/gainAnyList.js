@@ -118,8 +118,8 @@ export class gainAnyList extends plugin {
 		// 制作转发消息
 		if (forwardMsg.length > 1) {
 			forwardMsg = await common.generateForwardMsg(e, `共计 ${friends.size} 位好友 (第${targetPage}页/共${Math.ceil(friends.size / pageCount)}页)`, forwardMsg);
-			await e.reply(forwardMsg);
-		} else e.reply("没有找到符合条件的好友", true);
+			await this.reply(forwardMsg);
+		} else this.reply("没有找到符合条件的好友", true);
 		// 结束
 		return true;
 	};
@@ -195,8 +195,8 @@ export class gainAnyList extends plugin {
 		// 制作转发消息
 		if (forwardMsg.length > 1) {
 			forwardMsg = await common.generateForwardMsg(e, `共计 ${groups.size} 个群聊 (第${targetPage}页/共${Math.ceil(groups.size / pageCount)}页)`, forwardMsg);
-			await e.reply(forwardMsg);
-		} else e.reply("没有找到符合条件的群聊", true);
+			await this.reply(forwardMsg);
+		} else this.reply("没有找到符合条件的群聊", true);
 		// 结束
 		return true;
 	};
