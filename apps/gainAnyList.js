@@ -189,7 +189,7 @@ export class gainAnyList extends plugin {
 			seekNum++;
 		});
 		// 存储Redis
-		logger.mark(JtempRedis)
+		logger.mark(tempRedis)
 		await redis.set("Sunward:groups-code", JSON.stringify(tempRedis));
 		// 制作转发消息
 		if (forwardMsg.length > 1) {
