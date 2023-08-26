@@ -20,9 +20,8 @@ export class quitGroup extends plugin {
 		// 匹配目标
 		let reg = new RegExp(/^#*退出群聊*\s*(.*)/, "i");
 		let groups = e.msg.match(reg)[1].split(" ");
-		logger.mark(groups)
 		// 是否有目标
-		if (!groups || groups.length <= 0) {
+		if (!groups || groups.length <= 0 || (groups.length == 1 && groups[0] == "")) {
 			e.reply("请发送【#退出群聊 + 对应群号或者对应码】", true);
 			return;
 		}
@@ -33,6 +32,7 @@ export class quitGroup extends plugin {
 			await e.reply(replyMsg, false);
 			quitNum++;
 		});
+		logger.mark(quitNum)
 		// 多群提示
 		if (quitNum > 1) e.reply("退出群聊命令执行完毕", true);
 	};
@@ -50,11 +50,11 @@ export class quitGroup extends plugin {
 			// 获取Redis
 			let group2code = JSON.parse(await redis.get("Sunward:groups-code"));
 			// 查找群聊
-			if (!Object.keys(group2code).includes(targetGroup)) return `没有找到符合条件的群聊：${targetGroup}`;
+			if (!Object.keys(group2code).includes(targetGroup)) return `没有找到对应群聊：${targetGroup}`;
 			//
 			target = group2code[targetGroup];
 		} else {
-			if (!groups.includes(Number(target))) return `没有找到符合群聊：${targetGroup}`;
+			if (!groups.includes(Number(target))) return `没有找到相符群聊：${targetGroup}`;
 		}
 		// 是否为当前群聊
 		if (e.isGroup && e?.group_id == target) return "请在私聊或其他群里中使用";

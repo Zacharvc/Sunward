@@ -60,10 +60,10 @@ export class gainAnyList extends plugin {
 		// Redis
 		let tempRedis = {};
 		// 遍历好友列表
-		friends.forEach( async (value, key) => {
+		await friends.forEach( async (value, key) => {
 			if (startNum <= seekNum && seekNum <= endNum) {
 				let friendUin = key;
-				let codeRes = `F${common.codeByte(key, 6)}`;
+				let codeRes = `F${key}`;
 				// 判断是否需要加密
 				if (e.isGroup || !e.isMaster) friendUin = common.codeString(key);
 				// 加入转发消息
@@ -153,10 +153,10 @@ export class gainAnyList extends plugin {
 		// Redis
 		let tempRedis = {};
 		// 遍历群列表
-		groups.forEach( async (value, key) => {
+		await groups.forEach( async (value, key) => {
 			if (startNum <= seekNum && seekNum <= endNum) {
 				let groupUin = key;
-				let codeRes = `G${common.codeByte(key, 6)}`;
+				let codeRes = `G${key}`;
 				// 判断是否需要加密
 				if (e.isGroup || !e.isMaster) groupUin = common.codeString(key);
 				// 存储数据
