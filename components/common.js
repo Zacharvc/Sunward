@@ -46,12 +46,13 @@ async function codeByte (rawStr, length) {
 	if (typeof rawStr == "undefined" || rawStr.length <= 0) return false;
 	if (!length || typeof length !== "number") length = 6;
 	
-	rawStr = "";
-	let $rawStr = String(rawStr).split("");
-	await while (rawStr.length < length) $rawStr.forEach( (x) => {
-		rawStr += x.codePointAt(0), $rawStr = rawStr.split("");
-		logger.error(rawStr);
-	});
+	let $rawStr = String(rawStr).split(""); rawStr = "";
+	while (rawStr.length < length) {
+		$rawStr.forEach( (x) => {
+			rawStr += x.codePointAt(0), $rawStr = rawStr.split("");
+			logger.error(x);
+		});
+	};
 	rawStr = rawStr.slice(Math.floor(rawStr.length / 2));
 	
 	function replaceInt (number) {
