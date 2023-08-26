@@ -66,13 +66,15 @@ export class quitGroup extends plugin {
 			if (!Object.keys(group2code).includes(targetGroup)) return `没有找到对应群聊：${targetGroup}`;
 			// 确定目标
 			target = group2code[targetGroup];
-		} else {
-			if (!groups.includes(Number(target))) return `没有找到相符群聊：${targetGroup}`;
-		}
-		//
+
+	//
 		logger.mark("Groups:", groups);
 		logger.mark("group2code:", group2code);
 		logger.mark("targetGroup:", target);
+
+		} else {
+			if (!groups.includes(Number(target))) return `没有找到相符群聊：${targetGroup}`;
+		}
 		// 是否为当前群聊
 		if (e.isGroup && e?.group_id == target) return "请在私聊或其他群里中使用";
 		// 退出群聊
