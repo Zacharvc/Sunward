@@ -63,7 +63,7 @@ export class gainAnyList extends plugin {
 		await friends.forEach( async (value, key) => {
 			if (startNum <= seekNum && seekNum <= endNum) {
 				let friendUin = key;
-				let codeRes = `F${key}`;
+				let codeRes = `F${await common.codeByte(key, 5)}`;
 				// 判断是否需要加密
 				if (e.isGroup || !e.isMaster) friendUin = await common.codeString(key);
 				// 加入转发消息
@@ -115,7 +115,7 @@ export class gainAnyList extends plugin {
 		// 存储Redis
 		await redis.set("Sunward:friends-code", JSON.stringify(tempRedis));
 		// 制作转发消息
-		if (await forwardMsg.length > 1) {
+		if (forwardMsg.length > 1) {
 			forwardMsg = await common.generateForwardMsg(e, `共计 ${friends.size} 位好友 (第${targetPage}页/共${Math.ceil(friends.size / pageCount)}页)`, forwardMsg);
 			await e.reply(forwardMsg);
 		} else e.reply("没有找到符合条件的好友", true);
@@ -156,7 +156,7 @@ export class gainAnyList extends plugin {
 		await groups.forEach( async (value, key) => {
 			if (startNum <= seekNum && seekNum <= endNum) {
 				let groupUin = key;
-				let codeRes = `G${key}`;
+				let codeRes = `G${await common.codeByte(key, 5)}`;
 				// 判断是否需要加密
 				if (e.isGroup || !e.isMaster) groupUin = await common.codeString(key);
 				// 存储数据
@@ -191,7 +191,7 @@ export class gainAnyList extends plugin {
 		// 存储Redis
 		await redis.set("Sunward:groups-code", JSON.stringify(tempRedis));
 		// 制作转发消息
-		if (await forwardMsg.length > 1) {
+		if (forwardMsg.length > 1) {
 			forwardMsg = await common.generateForwardMsg(e, `共计 ${groups.size} 个群聊 (第${targetPage}页/共${Math.ceil(groups.size / pageCount)}页)`, forwardMsg);
 			await e.reply(forwardMsg);
 		} else e.reply("没有找到符合条件的群聊", true);

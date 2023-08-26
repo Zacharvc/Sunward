@@ -33,7 +33,7 @@ export class quitGroup extends plugin {
 			quitNum++;
 		});
 		// 多群提示
-		if (await quitNum > 1) e.reply("退出群聊命令执行完毕", true);
+		if (quitNum > 1) e.reply("退出群聊命令执行完毕", true);
 	};
 	
 	async quitTargetGroup (event, targetGroup) {
