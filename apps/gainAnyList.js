@@ -63,7 +63,7 @@ export class gainAnyList extends plugin {
 		await friends.forEach( async (value, key) => {
 			if (startNum <= seekNum && seekNum <= endNum) {
 				let friendUin = key;
-				let codeRes = "F" + await common.codeByte(key, 6);
+				let codeRes = "F" + common.codeByte(key, 6);
 				// 判断是否需要加密
 				if (e.isGroup || !e.isMaster) friendUin = await common.codeString(key);
 				// 加入转发消息
@@ -156,7 +156,7 @@ export class gainAnyList extends plugin {
 		await groups.forEach( async (value, key) => {
 			if (startNum <= seekNum && seekNum <= endNum) {
 				let groupUin = key;
-				let codeRes = "G" + await common.codeByte(key, 6);
+				let codeRes = "G" + common.codeByte(key, 6);
 				// 判断是否需要加密
 				if (e.isGroup || !e.isMaster) groupUin = await common.codeString(key);
 				// 存储数据
