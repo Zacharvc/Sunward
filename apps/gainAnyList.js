@@ -27,32 +27,7 @@ export class gainAnyList extends plugin {
 	getProjectPackage (key) {
 		let thisPackage = JSON.parse(fs.readFileSync("./package.json", "utf-8"));
 		if (Object.keys(thisPackage).includes(key)) return thisPackage[key];
-		return "undefined";
-	};
-	
-	codeNumber (int) {
-		if (typeof int !== "number") return 0;
-		int = String(int * 666 / 777 * 0.618);
-		int = int
-			.replace(/\./g, "n")
-			.replace(/0/g, "a")
-			.replace(/1/g, "A")
-			.replace(/2/g, "aA")
-			.replace(/3/g, "b")
-			.replace(/4/g, "B")
-			.replace(/5/, "c")
-			.replace(/ac/g, "x")
-			.replace(/5/g, "C")
-			.replace(/Aa/g, "6")
-			.replace(/a/g, "9")
-			.replace(/b/g, "2")
-			.replace(/A/g, "0")
-			.replace(/B/g, "3")
-			.replace(/c/g, "7")
-			.replace(/C/g, "23")
-			.slice(0, 6)
-			.toUpperCase();
-		return "#" + int;
+		return "unknown";
 	};
 	
 	async getFriendList () {
@@ -88,7 +63,7 @@ export class gainAnyList extends plugin {
 		await friends.forEach( async (value, key) => {
 			if (startNum <= seekNum && seekNum <= endNum) {
 				let friendUin = key;
-				let codeRes = this.codeNumber(key);
+				let codeRes = "F" + await common.codeByte(key, 6);
 				// 判断是否需要加密
 				if (e.isGroup || !e.isMaster) friendUin = await common.codeString(key);
 				// 加入转发消息
@@ -98,8 +73,19 @@ export class gainAnyList extends plugin {
 					message: []
 				};
 				// 存储数据
-				if (!tempRedis[codeRes]) tempRedis[codeRes] = [key];
-				else if (Array.isArray(tempRedis[codeRes])) tempRedis[codeRes].push(key);
+				if (!tempRedis[codeRes]) tempRedis[codeRes] = key;
+				else {
+					codeRes = function () {
+						let $codeRes, targetNum = 1;
+						Object.keys(tempRedis).forEach( (value, num) => {
+							$codeRes = `${codeRes}x${targetNum}`;
+							if (value === $codeRes) targetNum++;
+						});
+						$codeRes = `${codeRes}x${targetNum}`;
+						return $codeRes;
+					}();
+					tempRedis[codeRes] = key;
+				}
 				// 联系判断
 				let relevant = function () {
 					if (botManagers.includes(Number(key))) return "管理员";
@@ -170,12 +156,24 @@ export class gainAnyList extends plugin {
 		await groups.forEach( async (value, key) => {
 			if (startNum <= seekNum && seekNum <= endNum) {
 				let groupUin = key;
-				let codeRes = this.codeNumber(key);
+				let codeRes = "G" + await common.codeByte(key, 6);
 				// 判断是否需要加密
 				if (e.isGroup || !e.isMaster) groupUin = await common.codeString(key);
 				// 存储数据
-				if (!tempRedis[codeRes]) tempRedis[codeRes] = [key];
-				else if (Array.isArray(tempRedis[codeRes])) tempRedis[codeRes].push(key);
+				if (!tempRedis[codeRes]) tempRedis[codeRes] = key;
+				else {
+					codeRes = function () {
+						let $codeRes, targetNum = 1;
+						Object.keys(tempRedis).forEach( (value, num) => {
+							$codeRes = `${codeRes}x${targetNum}`;
+							if (value === $codeRes) targetNum++;
+						});
+						$codeRes = `${codeRes}x${targetNum}`;
+						return $codeRes;
+					}();
+					tempRedis[codeRes] = key;
+				}
+				// 添加消息
 				forwardMsg.push({
 					user_id: e.bot.uin,
 					nickname: e.bot.nickname,
