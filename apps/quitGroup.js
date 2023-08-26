@@ -21,7 +21,7 @@ export class quitGroup extends plugin {
 		let reg = new RegExp(/^#*退出群聊*\s*(.*)/, "i");
 		let groups = e.msg.match(reg)[1].split(" ");
 		// 是否有目标
-		if (!group || groups.length <= 0) e.reply("请发送【#退出群聊 + 对应群号或者对应码】", true);
+		if (!groups || groups.length <= 0) e.reply("请发送【#退出群聊 + 对应群号或者对应码】", true);
 		// 遍历目标
 		let quitNum = 0;
 		groups.forEach( async (group) => {
