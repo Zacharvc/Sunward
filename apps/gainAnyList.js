@@ -153,7 +153,8 @@ export class gainAnyList extends plugin {
 		// Redis
 		let tempRedis = {};
 		// 遍历群列表
-		await groups.forEach( async (value, key) => {
+		for (let group of groups) {
+			let key = group[0], value = group[1];
 			if (startNum <= seekNum && seekNum <= endNum) {
 				let groupUin = key;
 				let codeRes = `G${await common.codeByte(key, 5)}`;
@@ -187,9 +188,9 @@ export class gainAnyList extends plugin {
 				});
 			}
 			seekNum++;
-		});
-		// 存储Redis
+		};
 		logger.mark(tempRedis)
+		// 存储Redis
 		await redis.set("Sunward:groups-code", JSON.stringify(tempRedis));
 		// 制作转发消息
 		if (forwardMsg.length > 1) {
