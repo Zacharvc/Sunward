@@ -26,7 +26,7 @@ async function generateForwardMsg (e, title = false, forwardMsg = []) {
 };
 
 // 字符串中部加密
-async function codeString (rawStr, replaceTo = "*") {
+function codeString (rawStr, replaceTo = "*") {
 	if (!rawStr) return false;
 	rawStr = String(rawStr);
 	if (rawStr.length <= 2) return replaceTo + replaceTo;
@@ -41,7 +41,7 @@ async function codeString (rawStr, replaceTo = "*") {
 };
 
 // 伪哈希
-async function codeByte (rawStr, length) {
+function codeByte (rawStr, length) {
 	// 是否可使用
 	if (typeof rawStr == "undefined" || rawStr.length <= 0) return false;
 	if (!length || typeof length !== "number") length = 6;
