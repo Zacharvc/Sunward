@@ -40,4 +40,31 @@ async function codeString (rawStr, replaceTo = "*") {
 	return rawStr.slice(0, Math.round(startAim)) + replaceStr + rawStr.slice(Math.round(endAim));
 };
 
-export default { generateForwardMsg, codeString };
+// 伪哈希
+async function codeByte (rawStr, length) {
+	// 是否可使用
+	if (typeof rawStr == "undefined" || rawStr.length <= 0) return false;
+	if (!length || typeof length !== "number") length = 6;
+	
+	$rawStr = String(rawStr).split(""), rawStr = "";
+	while (rawStr.length < length) $rawStr.forEach( (x) => { rawStr += x.codePointAt(0), $rawStr = rawStr.split("") });
+	rawStr = rawStr.slice(Math.floor(rawStr.length / 2));
+	
+	function replaceInt (number) {
+		number = String(number);
+		number = number
+			.replace(/\./g, "7")
+			.replace(/e/g, "7")
+			.replace(/\+/g, "7")
+		return number;
+	};
+	
+	rawStr = replaceInt(Number(rawStr) / 7777777 * (length + 1));
+	
+	if (rawStr.length >= length) rawStr = rawStr.slice(-length);
+	else { while (rawStr.length < length) rawStr = String(Number(rawStr) * length).slice(-length) }
+	
+	return Number(replaceInt(rawStr));
+};
+
+export default { generateForwardMsg, codeString, codeByte };
