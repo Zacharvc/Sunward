@@ -43,7 +43,7 @@ export class quitGroup extends plugin {
 		};
 		// 消息提示
 		if (forwardMsgList.length > 1) {
-			forwardMsgList = await common.generateForwardMsg(e, `执行结果`, forwardMsgList);
+			forwardMsgList = await common.generateForwardMsg(e, `退群功能执行结果`, forwardMsgList);
 			await e.reply(forwardMsgList);
 		} else {
 			await e.reply(forwardMsgList[0].message);
@@ -69,6 +69,10 @@ export class quitGroup extends plugin {
 		} else {
 			if (!groups.includes(Number(target))) return `没有找到相符群聊：${targetGroup}`;
 		}
+		//
+		logger.mark("Groups:", groups);
+		logger.mark("group2code:", group2code);
+		logger.mark("targetGroup:", target);
 		// 是否为当前群聊
 		if (e.isGroup && e?.group_id == target) return "请在私聊或其他群里中使用";
 		// 退出群聊
