@@ -1,7 +1,11 @@
 "use strict";
 
 import plugin from "../../../lib/plugins/plugin.js";
+import config from "../../../lib/config/config.js";
 import common from "../components/common.js";
+
+// 机器人管理员
+let botManagers = config.masterQQ;
 
 export class deleteFriend extends plugin {
 	constructor() {
@@ -70,6 +74,10 @@ export class deleteFriend extends plugin {
 			if (!friends.has(Number(target))) return `指定好友不存在：${targetFriend}`;
 		}
 		target = Number(target);
+		// 是否为自己
+		if (e.bot.uin == target) return `不能删除自己：${targetFriend}`;
+		// 是否为管理员
+		if (botManager.includes(target)) return `不能删除管理员：${targetFriend}`;
 		// 删除好友
 		await e.bot.pickFriend(target).delete();
 		return `已删除指定好友：${target}`;
