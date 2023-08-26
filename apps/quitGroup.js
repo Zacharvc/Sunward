@@ -31,7 +31,7 @@ export class quitGroup extends plugin {
 		}
 		// 遍历目标
 		let forwardMsgList = [];
-		await groups.forEach( async (group) => {
+		for (let group of groups) {
 			let forwardMsg = {
 				user_id: e.bot.uin,
 				nickname: e.bot.nickname,
@@ -39,7 +39,7 @@ export class quitGroup extends plugin {
 			};
 			forwardMsg.message = await this.quitTargetGroup(e, group);
 			// 加入消息
-			await forwardMsgList.push(forwardMsg);
+			forwardMsgList.push(forwardMsg);
 		});
 		// 消息提示
 		if (forwardMsgList.length > 1) {
