@@ -48,7 +48,10 @@ async function codeByte (rawStr, length) {
 	
 	rawStr = "";
 	let $rawStr = String(rawStr).split("");
-	while (rawStr.length < length) $rawStr.forEach( (x) => { rawStr += x.codePointAt(0), $rawStr = rawStr.split("") });
+	await while (rawStr.length < length) $rawStr.forEach( (x) => {
+		rawStr += x.codePointAt(0), $rawStr = rawStr.split("");
+		logger.error(rawStr);
+	});
 	rawStr = rawStr.slice(Math.floor(rawStr.length / 2));
 	
 	function replaceInt (number) {
