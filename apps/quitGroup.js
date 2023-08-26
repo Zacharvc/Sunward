@@ -30,10 +30,8 @@ export class quitGroup extends plugin {
 		await groups.forEach( async (group) => {
 			let replyMsg = await this.quitTargetGroup(e, group);
 			await e.reply(replyMsg, false);
-			quitNum++;
-			logger.info(quitNum)
+			await quitNum++;
 		});
-		logger.info("over" + quitNum)
 		// 多群提示
 		if (quitNum > 1) e.reply("退出群聊命令执行完毕", true);
 	};
