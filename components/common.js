@@ -41,7 +41,7 @@ async function codeString (rawStr, replaceTo = "*") {
 };
 
 // 伪哈希
-function codeByte (rawStr, length) {
+async function codeByte (rawStr, length) {
 	// 是否可使用
 	if (typeof rawStr == "undefined" || rawStr.length <= 0) return false;
 	if (!length || typeof length !== "number") length = 6;
@@ -64,7 +64,7 @@ function codeByte (rawStr, length) {
 	if (rawStr.length >= length) rawStr = rawStr.slice(-length);
 	else { while (rawStr.length < length) rawStr = String(Number(rawStr) * length).slice(-length) }
 	
-	return Number(replaceInt(rawStr));
+	return replaceInt(rawStr);
 };
 
 export default { generateForwardMsg, codeString, codeByte };
