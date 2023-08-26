@@ -40,7 +40,7 @@ export class quitGroup extends plugin {
 			forwardMsg.message = await this.quitTargetGroup(e, group);
 			// 加入消息
 			forwardMsgList.push(forwardMsg);
-		});
+		};
 		// 消息提示
 		if (forwardMsgList.length > 1) {
 			forwardMsgList = await common.generateForwardMsg(e, `执行结果`, forwardMsgList);
