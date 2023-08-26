@@ -46,7 +46,8 @@ async function codeByte (rawStr, length) {
 	if (typeof rawStr == "undefined" || rawStr.length <= 0) return false;
 	if (!length || typeof length !== "number") length = 6;
 	
-	$rawStr = String(rawStr).split(""), rawStr = "";
+	rawStr = "";
+	let $rawStr = String(rawStr).split("");
 	while (rawStr.length < length) $rawStr.forEach( (x) => { rawStr += x.codePointAt(0), $rawStr = rawStr.split("") });
 	rawStr = rawStr.slice(Math.floor(rawStr.length / 2));
 	
