@@ -32,9 +32,8 @@ export class quitGroup extends plugin {
 			await e.reply(replyMsg, false);
 			quitNum++;
 		});
-		logger.mark(quitNum)
 		// 多群提示
-		if (quitNum > 1) e.reply("退出群聊命令执行完毕", true);
+		if (await quitNum > 1) e.reply("退出群聊命令执行完毕", true);
 	};
 	
 	async quitTargetGroup (event, targetGroup) {
