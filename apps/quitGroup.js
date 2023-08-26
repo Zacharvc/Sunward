@@ -52,12 +52,13 @@ export class quitGroup extends plugin {
 	
 	async quitTargetGroup (event, targetGroup) {
 		let e = event;
+		logger.mark(e)
 		// 目标群聊
 		let target = targetGroup;
 		// 重新载入群聊
 		await e.bot.reloadGroupList();
 		// 加载群列表
-		let groups = Object.keys(e.bot.gl);
+		let groups = Object.keys(await e.bot.gl);
 		// 是否存在群聊
 		if (String(targetGroup).startsWith("G")) {
 			// 获取Redis
