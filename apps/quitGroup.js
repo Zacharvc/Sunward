@@ -62,17 +62,15 @@ export class quitGroup extends plugin {
 		if (String(targetGroup).startsWith("G")) {
 			// 获取Redis
 			let group2code = JSON.parse(await redis.get("Sunward:groups-code"));
+			//
+			logger.mark("Groups:", groups);
+			logger.mark("group2code:", group2code);
 			// 查找群聊
 			if (!Object.keys(group2code).includes(targetGroup)) return `没有找到对应群聊：${targetGroup}`;
 			// 确定目标
 			target = group2code[targetGroup];
-
-	//
-		logger.mark("Groups:", groups);
-		logger.mark("group2code:", group2code);
-		logger.mark("targetGroup:", target);
-
 		} else {
+			logger.mark("targetGroup:", target);
 			if (!groups.includes(Number(target))) return `没有找到相符群聊：${targetGroup}`;
 		}
 		// 是否为当前群聊
