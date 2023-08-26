@@ -35,7 +35,7 @@ export class quitGroup extends plugin {
 			quitNum++;
 		});
 		// 多群提示
-		if (quitNum > 1) e.reply("退出群聊命令执行完毕", true);
+		if (quitNum > 1) await e.reply("退出群聊命令执行完毕", true);
 	};
 	
 	async quitTargetGroup (event, targetGroup) {
@@ -47,7 +47,7 @@ export class quitGroup extends plugin {
 		// 是否存在群聊
 		if (String(targetGroup).startsWith("G")) {
 			// 获取Redis
-			let group2code = JSON.parse(await redis.get("Sunward:groups-code"));
+			let group2code = JSON.parse(redis.get("Sunward:groups-code"));
 			// 查找群聊
 			if (!Object.keys(group2code).includes(targetGroup)) return `没有找到对应群聊：${targetGroup}`;
 			// 确定目标
