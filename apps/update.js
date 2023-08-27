@@ -10,6 +10,9 @@ const pluginName = packageInfo.name;
 const pluginCnName = packageInfo.cNname;
 const pluginVersion = packageInfo.version;
 
+// 计时器
+let Timer;
+
 export class updateSunward extends plugin {
 	constructor() {
 		super({
@@ -49,10 +52,10 @@ export class updateSunward extends plugin {
 				this.reply("错误信息已输出到日志");
 			}
 			// 重启
+			Timer && clearTimeout(Timer);
+			Timer = setTimeout( () => { new Restart(e).restart() }, 3000);
+			// 更新成功提示
 			this.reply(`${pluginCnName}插件更新成功，开始尝试调动重启...`);
-			let result = await new Restart(e).restart();
-			
-			logger.mark(result);
 			
 			return true;
 		});
