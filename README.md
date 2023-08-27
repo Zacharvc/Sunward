@@ -1,4 +1,4 @@
-# Sunward
+## Sunward
 
 * 仅仅是一个[Yunzai v3](https://gitee.com/le-niao/Yunzai-Bot)的插件！
 * Sunward插件目前处于测试阶段，请酌情使用！
@@ -42,8 +42,6 @@ git clone --depth=1 https://gitee.com/yoolan/Sunward.git ./plugins/Sunward/
 4. 快捷退出所有群聊
 
 </details>
-
----
 
 ## 其他
 
