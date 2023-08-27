@@ -45,4 +45,6 @@ git clone --depth=1 https://gitee.com/yoolan/Sunward.git ./plugins/Sunward/
 
 ## 其他
 
-* 插件交流群：[895608200](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=88YH6X-zKVk7pUnXegCTRPVferTbNPBl&authKey=LKPg3ctk1rgn%2FrKZHySGJtgTWA1st9DX%2BbbSCbK2HU6DMPxz72sGe2kRLe6o8s%2FH&noverify=0&group_code=895608200)
+* 爱发电：暂无
+
+[![Group:895608200](https://img.shields.io/badge/Group-895608200-red)](https://qm.qq.com/cgi-bin/qm/qr?authKey=90qX4dwk3D3iqA3N%2FI8K5RL3n9ucg30CmRMiQn%2FpfBdV1d2HHOslAbwm%2BsPpb8nZ&k=rJ1gMehehYXvj8z8jut6h-Zj5VUd4rhr&noverify=0)
