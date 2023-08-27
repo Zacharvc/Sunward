@@ -1,5 +1,6 @@
 "use strict";
 
+import { Restart } from "../../other/restart.js";
 import plugin from "../../../lib/plugins/plugin.js";
 import { pluginRootDir } from "../components/path.js";
 import packageInfo from "../components/package.js";
@@ -48,8 +49,9 @@ export class updateSunward extends plugin {
 			}
 			// 重启
 			this.reply(`${pluginCnName}插件更新成功，开始尝试调动重启...`);
-			// 重启失败
-			await this.restart(e)
+			let result = await new Restart(e).restart();
+			
+			logger.mark(result);
 			
 			return true;
 		});
@@ -62,13 +64,6 @@ export class updateSunward extends plugin {
 			return false;
 		}
 		return true;
-	};
-	
-	async restart (e) {
-		const { Restart } = import("../../other/restart.js");
-		return new Promise( (resolve, reject) => {
-			resolve(new Restart(e).restart());
-		});
 	};
 	
 };
