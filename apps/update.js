@@ -1,12 +1,9 @@
 "use strict";
 
-import { createRequire } from "module";
 import plugin from "../../../lib/plugins/plugin.js";
 import { pluginRootDir } from "../components/path.js";
 import packageInfo from "../components/package.js";
 import { exec, execSync } from "node:child_process";
-
-const require = createRequire(import.meta.url);
 
 const pluginName = packageInfo.name;
 const pluginCnName = packageInfo.cNname;
@@ -68,7 +65,7 @@ export class updateSunward extends plugin {
 	};
 	
 	async restart (e) {
-		const { Restart } = require("../../other/restart.js");
+		const { Restart } = import("../../other/restart.js");
 		return await new Restart(e).restart();
 	};
 	
