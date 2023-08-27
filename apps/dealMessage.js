@@ -8,10 +8,10 @@ export class dealMessage extends plugin {
 			name: "dealMessage",
 			event: "message"
 		});
-		
-		accept () {
-			logger.mark(this.e);
-		};
-		
 	};
+	
+	async accept () {
+		logger.mark(this.e);
+	};
+	
 };
