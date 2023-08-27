@@ -28,7 +28,7 @@ export class updateSunward extends plugin {
 	async updateSunward () {
 		let e = this.e;
 		// 检查Git安装
-		if (await this.checkGit()) return;
+		if (!await this.checkGit()) return;
 		// 是否强制更新
 		let command = "git pull";
 		if (e.msg.includes("强制")) command = "git checkout . & git pull";
