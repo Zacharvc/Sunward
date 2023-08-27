@@ -33,7 +33,7 @@ export class updateSunward extends plugin {
 		let command = "git pull";
 		if (e.msg.includes("强制")) command = "git checkout . & git pull";
 		// 执行更新命令
-		exec(command, { cwd: pluginRootDir }, (error, stdout, stderr) => {
+		exec(command, { cwd: pluginRootDir }, async (error, stdout, stderr) => {
 			// 已经是最新版本
 			if (/(已经是最新|Already up[ -]to[ -]date)/.test(stdout)) {
 				this.reply(`${pluginCnName}插件已是最新版本`);
