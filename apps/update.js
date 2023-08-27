@@ -68,7 +68,7 @@ export class updateSunward extends plugin {
 	};
 	
 	async restart (e) {
-		const { Restart } = require("../../other/.restart.js");
+		const { Restart } = require("../../other/restart.js");
 		return await new Restart(e).restart();
 	};
 	
