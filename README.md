@@ -42,3 +42,9 @@ git clone --depth=1 https://gitee.com/yoolan/Sunward.git ./plugins/Sunward/
 4. 快捷退出所有群聊
 
 </details>
+
+---
+
+## 其他
+
+* 插件交流群：895608200
