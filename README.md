@@ -1,7 +1,7 @@
-## Sunward
+# Sunward
 
 * 仅仅是一个[Yunzai v3](https://gitee.com/le-niao/Yunzai-Bot)的插件！
-* Sunward插件目前处于测试阶段，请酌情使用！
+* Sunward插件目前处于测试阶段，请酌情使用！(小孩不懂事，乱写着玩儿的)
 
 ## 安装方法
 
