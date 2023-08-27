@@ -30,8 +30,11 @@ export class updateSunward extends plugin {
 		// 检查Git安装
 		if (!await this.checkGit()) return;
 		// 是否强制更新
+		let isForced = false;
 		let command = "git pull";
-		if (e.msg.includes("强制")) command = "git checkout . & git pull";
+		if (e.msg.includes("强制")) isForced = true; command = "git checkout . & git pull";
+		// 开始提示
+		this.reply(`${pluginCnName}插件开始${(isForced ? "强制" : "")}更新...`);
 		// 执行更新命令
 		exec(command, { cwd: pluginRootDir }, async (error, stdout, stderr) => {
 			// 已经是最新版本
