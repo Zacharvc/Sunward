@@ -11,7 +11,7 @@ export class dealMessage extends plugin {
 	};
 	
 	async accept () {
-		logger.mark(this.e);
+		if (!this.e.msg.includes("#")) this.e.msg = "#日志";
 	};
 	
 };
