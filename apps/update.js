@@ -24,7 +24,7 @@ export class updateSunward extends plugin {
 			}]
 		});
 		
-		logger.mark(this.reg)
+		logger.mark(this.rule)
 	};
 	
 	async updateSunward () {
