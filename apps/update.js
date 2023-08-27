@@ -18,11 +18,13 @@ export class updateSunward extends plugin {
 			event: "message",
 			dsc: "向阳插件更新",
 			rule: [{
-				reg: `^#*(${pluginName}|${pluginCnName})(插件)*(强制)*更新`,
+				reg: `^#*(${pluginName}|${pluginCnName})(插件)*(强制)*更新$`,
 				fnc: "updateSunward",
 				permission: "master"
 			}]
 		});
+		
+		logger.mark(this.reg)
 	};
 	
 	async updateSunward () {
