@@ -48,12 +48,12 @@ export class updateSunward extends plugin {
 			if (error) {
 				logger.error(`Error code：${error.code}`);
 				logger.error(`Error trick：${error.trick}`);
-				await this.reply(`${pluginCnName}插件更新出错，请稍后再试！`);
-				this.reply("错误信息已输出到日志");
+				this.reply(`${pluginCnName}插件更新出错，请稍后再试！`);
+				setTimeout( () => { this.reply("错误信息已输出到日志") }, 500);
 			}
 			// 重启
 			Timer && clearTimeout(Timer);
-			Timer = setTimeout( () => { new Restart(e).restart() }, 3000);
+			Timer = setTimeout( () => { new Restart(e).restart() }, 2000);
 			// 更新成功提示
 			this.reply(`${pluginCnName}插件更新成功，开始尝试调动重启...`);
 			
