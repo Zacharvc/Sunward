@@ -47,9 +47,9 @@ export class updateSunward extends plugin {
 				this.reply("错误信息已输出到日志");
 			}
 			// 重启
-			this.reply(`${pluginCnName}插件更新成功，尝试调动重启...`);
-			// 重启失败提示
-			if (!await this.restart(e)) this.reply("重启失败，请手动重启！");
+			this.reply(`${pluginCnName}插件更新成功，开始尝试调动重启...`);
+			// 重启失败
+			await this.restart(e)
 			
 			return true;
 		});
@@ -66,7 +66,9 @@ export class updateSunward extends plugin {
 	
 	async restart (e) {
 		const { Restart } = import("../../other/restart.js");
-		return await new Restart(e).restart();
+		return new Promise( (resolve, reject) => {
+			resolve(new Restart(e).restart());
+		});
 	};
 	
 };
