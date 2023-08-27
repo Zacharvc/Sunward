@@ -9,7 +9,7 @@ import { exec, execSync } from "node:child_process";
 const require = createRequire(import.meta.url);
 
 const pluginName = packageInfo.name;
-const pluginCnName = packageInfo.cnName;
+const pluginCnName = packageInfo.cNname;
 
 export class updateSunward extends plugin {
 	constructor() {
@@ -23,8 +23,6 @@ export class updateSunward extends plugin {
 				permission: "master"
 			}]
 		});
-		
-		logger.mark(this.rule)
 	};
 	
 	async updateSunward () {
