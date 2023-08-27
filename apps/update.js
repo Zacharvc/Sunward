@@ -8,6 +8,7 @@ import { exec, execSync } from "node:child_process";
 
 const pluginName = packageInfo.name;
 const pluginCnName = packageInfo.cNname;
+const pluginVersion = packageInfo.version;
 
 export class updateSunward extends plugin {
 	constructor() {
@@ -37,7 +38,7 @@ export class updateSunward extends plugin {
 		exec(command, { cwd: pluginRootDir }, async (error, stdout, stderr) => {
 			// 已经是最新版本
 			if (/(已经是最新|Already up[ -]to[ -]date)/.test(stdout)) {
-				this.reply(`${pluginCnName}插件已是最新版本`);
+				this.reply(`${pluginCnName}插件目前已是最新版本：${pluginVersion}`);
 				return true;
 			}
 			// 更新出错
