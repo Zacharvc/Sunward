@@ -49,9 +49,7 @@ export class deleteFriend extends plugin {
 		if (forwardMsgList.length > 1) {
 			forwardMsgList = await common.generateForwardMsg(e, `命令执行结果`, forwardMsgList);
 			await this.reply(forwardMsgList);
-		} else {
-			await this.reply(forwardMsgList[0].message);
-		}
+		} else await this.reply(forwardMsgList[0].message);
 	};
 	
 	async delTargetFriend (event, targetFriend) {
@@ -80,6 +78,10 @@ export class deleteFriend extends plugin {
 		if (botManagers.includes(target)) return `不能删除管理员：${targetFriend}`;
 		// 删除好友
 		await e.bot.pickFriend(target).delete();
+		// 是否需要加密
+		let needCode = false;
+		if (e.isGroup) needCode = true;
+		target = needCode ? await common.codeString(target) : target;
 		return `已删除指定好友：${target}`;
 	};
 	

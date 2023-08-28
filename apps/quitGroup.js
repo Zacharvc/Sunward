@@ -45,9 +45,7 @@ export class quitGroup extends plugin {
 		if (forwardMsgList.length > 1) {
 			forwardMsgList = await common.generateForwardMsg(e, `命令执行结果`, forwardMsgList);
 			await this.reply(forwardMsgList);
-		} else {
-			await this.reply(forwardMsgList[0].message);
-		}
+		} else await this.reply(forwardMsgList[0].message);
 	};
 	
 	async quitTargetGroup (event, targetGroup) {
@@ -74,6 +72,10 @@ export class quitGroup extends plugin {
 		if (e.isGroup && e?.group_id == target) return `退出本群请在私聊或其他群内使用：${targetGroup}`;
 		// 退出群聊
 		await e.bot.pickGroup(target).quit();
+		// 是否需要加密
+		let needCode = false;
+		if (e.isGroup) needCode = true;
+		target = needCode ? await common.codeString(target) : target;
 		return `已退出指定群聊：${target}`;
 	};
 	
