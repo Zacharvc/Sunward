@@ -7,7 +7,7 @@ import packageInfo from "../components/package.js";
 import { exec, execSync } from "node:child_process";
 
 const pluginName = packageInfo.name;
-const pluginCnName = packageInfo.cNname;
+const pluginCnName = packageInfo.cnName;
 const pluginVersion = packageInfo.version;
 
 // 计时器
