@@ -9,7 +9,7 @@ import { pluginRootDir } from "./components/path.js";
 const appFiles = fs.readdirSync(`${pluginRootDir}/apps`).filter( (file) => file.endsWith(".js") );
 // 插件名称
 const pluginName = $Package.name;
-const pluginNameCn = $Package.cNname;
+const pluginNameCn = $Package.cnName;
 // 插件版本
 const pluginVersion = $Package.version;
 // 插件作者
