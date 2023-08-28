@@ -75,7 +75,7 @@ export class deleteFriend extends plugin {
 		// 是否为自己
 		if (e.bot.uin == target) return `不能删除自己：${targetFriend}`;
 		// 是否为管理员
-		if (botManagers.includes(target)) return `不能删除管理员：${targetFriend}`;
+		if (botManagers.includes(target)) return `不能删除管理员：${await e.bot.pickFriend(target).nickname}`;
 		// 删除好友
 		await e.bot.pickFriend(target).delete();
 		// 是否需要加密

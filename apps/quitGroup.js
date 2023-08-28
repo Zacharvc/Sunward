@@ -69,7 +69,7 @@ export class quitGroup extends plugin {
 		}
 		target = Number(target);
 		// 是否为当前群聊
-		if (e.isGroup && e?.group_id == target) return `退出本群请在私聊或其他群内使用：${targetGroup}`;
+		if (e.isGroup && e?.group_id == target) return `退出本群请私聊或在其他群内使用：${targetGroup}`;
 		// 退出群聊
 		await e.bot.pickGroup(target).quit();
 		// 是否需要加密
