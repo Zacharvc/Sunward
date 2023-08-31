@@ -45,7 +45,7 @@ git clone --depth=1 https://gitee.com/yoolan/Sunward.git ./plugins/Sunward/
 
 ## 其他
 
-* 捐赠支持：[爱发电](https://afdian.net/a/Sunward)
+* 捐赠支持：[爱发电](https://afdian.net/a/withGarlic)
 
 * 插件问题请进群或发布议题反馈，谢谢
 
