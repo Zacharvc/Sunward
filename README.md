@@ -1,13 +1,12 @@
 # Sunward
 
 * 仅仅是一个[Yunzai-Bot v3](https://gitee.com/le-niao/Yunzai-Bot)的插件！
-* Sunward插件目前处于测试阶段，请酌情使用！(小孩不懂事，乱写着玩儿的)
 
 ## 安装方法
 
-> 注意：请确保您已正确的安装了3.0版本的Yunzai！
+> 注意：在开始之前，请确保您已正确的安装了3.0版本的Yunzai！
 
-请根据您的网络状况选择Github或Gitee进行安装
+请根据您的网络状况选择Github或Gitee进行克隆安装
 
 * 使用Github克隆项目
 
@@ -41,6 +40,7 @@ git clone --depth=1 https://gitee.com/yoolan/Sunward.git ./plugins/Sunward/
 2. 监测加群邀请
 3. 快捷删除全部好友
 4. 快捷退出所有群聊
+5. 功能图形化
 
 </details>
 
