@@ -30,6 +30,7 @@ git clone --depth=1 https://gitee.com/yoolan/Sunward.git ./plugins/Sunward/
 2. 查看群聊列表
 3. 快捷删除好友
 4. 快捷退出群聊
+5. Git克隆项目安装插件
 
 </details>
 
