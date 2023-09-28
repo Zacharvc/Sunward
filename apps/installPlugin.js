@@ -29,8 +29,12 @@ export class installPlugin extends plugin {
 		let reg = new RegExp(/^#*(安装插件|>>>) (.*) (.*)/, "i");
 		let url = e.msg.match(reg)[2], pluginName = e.msg.match(reg)[3];
 		// 检测合法性
-		if (!url || !pluginName) {
-			this.reply("数据不完整，请重新输入！");
+		if (!url || url == "") {
+			this.reply("请输入插件项目地址");
+			return;
+		}
+		if (!pluginName || pluginName == "") {
+			this.reply("请输入插件安装目录");
 			return;
 		}
 		let command = `git clone ${url}.git ./plugins/${pluginName}`;
@@ -41,9 +45,12 @@ export class installPlugin extends plugin {
 			// 安装出错
 			if (error) {
 				logger.error(`Error code：${error.code}`);
-				logger.error(stderr);
 				this.reply(`${pluginName} 安装出错，请稍后再试！`);
-				setTimeout( () => { this.reply("错误信息已输出到日志") }, 500);
+				setTimeout( () => {
+					if (/(does not exist)/.test(stderr)) this.reply("错误：项目地址不存在！");
+					else if(/(already exists and is not an empty directory)/.test(stderr)) this.reply("错误：插件已存在！");
+					else this.reply(stderr);
+				}, 500);
 				return true;
 			}
 			// 安装成功
