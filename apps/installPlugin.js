@@ -26,7 +26,7 @@ export class installPlugin extends plugin {
 		// 权限判断
 		if (!e.isMaster) return;
 		// 获取命令
-		let reg = new RegExp(/^#*(安装插件|>>>) (.*) (.*)/, "g");
+		let reg = new RegExp(/^#*(安装插件|>>>) (.*) (.*)/, "i");
 		let url = e.msg.match(reg)[2], pluginName = e.msg.match(reg)[3];
 		// 检测合法性
 		if (!url || !pluginName) {
