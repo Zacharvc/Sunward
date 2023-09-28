@@ -45,12 +45,10 @@ export class installPlugin extends plugin {
 			// 安装出错
 			if (error) {
 				logger.error(`Error code：${error.code}`);
-				this.reply(`${pluginName} 安装出错，请稍后再试！`);
-				setTimeout( () => {
-					if (/(does not exist)/.test(stderr)) this.reply("错误：项目地址不存在！");
-					else if(/(already exists and is not an empty directory)/.test(stderr)) this.reply("错误：插件已存在！");
-					else this.reply(stderr);
-				}, 500);
+				if (/(does not exist)/.test(stderr)) this.reply("错误：项目地址不存在！");
+				else if(/(already exists and is not an empty directory)/.test(stderr)) this.reply("错误：插件已存在！");
+				else this.reply(stderr);
+				setTimeout( () => { this.reply(`${pluginName} 安装出错，请稍后再试！`) }, 500);
 				return true;
 			}
 			// 安装成功
