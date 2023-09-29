@@ -46,7 +46,7 @@ export class pluginsManager extends plugin {
 		// 提示
 		this.reply("开始安装插件 " + pluginName);
 		// 执行操作
-		exec(command, { cwd: $path }, async (error, stdout, stderr) => {
+		exec(command, { cwd: $path, windowsHide: true }, async (error, stdout, stderr) => {
 			// 安装出错
 			if (error) {
 				logger.error(`Error code：${error.code}`);
@@ -78,13 +78,13 @@ export class pluginsManager extends plugin {
 			return;
 		}
 		// 插件是否存在
-		if (!fs.existsSync(path.join($path, "plugins", pluginName, "index.js"))) {
+		if (!fs.existsSync(path.join($path, "plugins", pluginName, ".git"))) {
 			this.reply(pluginName + " 插件不存在！");
 			return;
 		}
 		// 执行操作
 		let command = `rm -rf ${pluginName}`;
-		exec(command, { cwd: path.join($path, "plugins") }, async (error, stdout, stderr) => {
+		exec(command, { cwd: path.join($path, "plugins"), windowsHide: true }, async (error, stdout, stderr) => {
 			// 移除出错
 			if (error) {
 				logger.error(`Error code：${error.code}`);
