@@ -32,10 +32,13 @@ export class pluginsManager extends plugin {
 		if (!e.isMaster) return;
 		// 获取目标插件
 		let reg = new RegExp(/^#*(安装插件|>>>)\s(.*)/, "i");
-		let msg = e.msg.match(reg)[1].split(" ");
+		let msg = e.msg.match(reg)[2].split(" ");
 		let url = msg[0], pluginName = (msg.length > 1) ? msg[1] : "";
 		// 检测合法性
-		if (!url || url === "") this.reply("请输入插件项目地址"); return;
+		if (!url || url === "") {
+			this.reply("请输入插件项目地址");
+			return;
+		}
 		// 使用默认路径
 		let _url = url.split("/");
 		if (!pluginName || pluginName === "") pluginName = _url[_url.length - 1];
