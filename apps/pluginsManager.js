@@ -3,7 +3,6 @@
 import fs from "node:fs";
 import path from "path";
 import plugin from "../../../lib/plugins/plugin.js";
-import common from "../components/common.js";
 import { exec, execSync } from "node:child_process";
 
 const $path = process.cwd().replace(/\\/g, "/");
