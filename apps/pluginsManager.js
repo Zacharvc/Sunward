@@ -42,7 +42,8 @@ export class pluginsManager extends plugin {
 		// 使用默认路径
 		let _url = url.split("/");
 		if (!pluginName || pluginName === "") pluginName = _url[_url.length - 1];
-		let command = `git clone ${url}.git ./plugins/${pluginName}`;
+		if (pluginName.endsWith(".git")) pluginName = pluginName.split(".git")[0];
+		let command = `git clone ${url}${(url.endsWith(".git") ? "" : ".git")} ./plugins/${pluginName}`;
 		// 提示
 		this.reply("开始安装插件 " + pluginName);
 		// 执行操作
