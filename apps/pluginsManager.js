@@ -51,13 +51,16 @@ export class pluginsManager extends plugin {
 			if (error) {
 				logger.error(`Error code：${error.code}`);
 				if (/(does not exist)/.test(stderr)) this.reply("错误：项目地址不存在！");
-				else if(/(already exists and is not an empty directory)/.test(stderr)) this.reply("错误：插件已存在！");
+				else if(/(already exists and is not an empty directory)/.test(stderr)) this.reply("错误：文件夹已存在！");
 				else this.reply(stderr);
 				setTimeout( () => { this.reply(`${pluginName} 安装出错，请稍后再试！`) }, 500);
 				return true;
 			}
-			// 安装成功
+			// 克隆成功
 			this.reply(`${pluginName} 项目克隆成功，请自行重启以应用插件`);
+			// 判断是否为插件
+			let isPlugin = fs.existsSync(path.join($path, "plugins", pluginName, "index.js"));
+			if (!isPlugin) this.reply(`${pluginName} 缺少主要文件，这可能不是一个插件，请注意`);
 			return true;
 		});
 	};
