@@ -15,7 +15,7 @@ export class pluginsManager extends plugin {
 			event: "message",
 			dsc: "插件管理",
 			rule: [{
-				reg: "^#*(安装插件|>>>) (.*) (.*)*",
+				reg: "^#*(安装插件|>>>) (.*) (.*)?",
 				fnc: "installTargetPlugin"
 			}, {
 				reg: "^#*(移除插件|<<<) (.*)",
@@ -31,7 +31,7 @@ export class pluginsManager extends plugin {
 		// 权限判断
 		if (!e.isMaster) return;
 		// 获取目标插件
-		let reg = new RegExp(/^#*(安装插件|>>>) (.*) (.*)/, "i");
+		let reg = new RegExp(/^#*(安装插件|>>>) (.*) (.*)?/, "i");
 		let url = e.msg.match(reg)[2], pluginName = e.msg.match(reg)[3];
 		// 检测合法性
 		if (!url || url === "") this.reply("请输入插件项目地址"); return;
