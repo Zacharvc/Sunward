@@ -17,12 +17,12 @@ export class withdrawMsg extends plugin {
 	
 	hasPower (e, target) {
 		if (!e.isGroup) return null;
-		
-		let hasPower = false, aimUser = e.group.picjMember(target);
-		
+		// 获取撤回目标
+		let hasPower = false, aimUser = e.group.pickMember(target);
+		// 判断权限
 		if (e.group.is_owner) hasPower = true;
 		else if (!aimUser.is_owner && !aimUser.is_admin && e.group.is_admin) hasPower = true;
-		
+		// 返回
 		return hasPower;
 	};
 	
