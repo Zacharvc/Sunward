@@ -81,7 +81,7 @@ export class pluginsManager extends plugin {
 		}
 		// 执行操作
 		let command = `rm -rf ${pluginName}`;
-		exec(command, { cwd: $path }, async (error, stdout, stderr) => {
+		exec(command, { cwd: path.join($path, "plugins") }, async (error, stdout, stderr) => {
 			// 移除出错
 			if (error) {
 				logger.error(`Error code：${error.code}`);
