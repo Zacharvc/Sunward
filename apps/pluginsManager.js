@@ -15,10 +15,10 @@ export class pluginsManager extends plugin {
 			event: "message",
 			dsc: "插件管理",
 			rule: [{
-				reg: "^#*(安装插件|>>>)\s(.*)",
+				reg: "^#*(安装插件|>>>)\s.*",
 				fnc: "installTargetPlugin"
 			}, {
-				reg: "^#*(移除插件|<<<)\s(.*)",
+				reg: "^#*(移除插件|<<<)\s.*",
 				fnc: "removeTargetPlugin"
 			}]
 		});
@@ -32,7 +32,7 @@ export class pluginsManager extends plugin {
 		if (!e.isMaster) return;
 		// 获取目标插件
 		let reg = new RegExp(/^#*(安装插件|>>>)\s(.*)/, "i");
-		let msg = e.msg.match(reg).split(" ");
+		let msg = e.msg.match(reg)[1].split(" ");
 		let url = msg[0], pluginName = (msg.length > 1) ? msg[1] : "";
 		// 检测合法性
 		if (!url || url === "") this.reply("请输入插件项目地址"); return;
