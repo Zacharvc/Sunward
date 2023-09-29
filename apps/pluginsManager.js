@@ -34,7 +34,7 @@ export class pluginsManager extends plugin {
 		let reg = new RegExp(/^#*(安装插件|>>>) (.*) (.*)/, "i");
 		let url = e.msg.match(reg)[2], pluginName = e.msg.match(reg)[3];
 		// 检测合法性
-		if (!url || url === "") this.reply("请输入插件项目地址") & return;
+		if (!url || url === "") this.reply("请输入插件项目地址"); return;
 		// 使用默认路径
 		let _url = url.split("/");
 		if (!pluginName || pluginName === "") pluginName = _url[_url.length - 1];
