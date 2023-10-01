@@ -33,6 +33,8 @@ git clone --depth=1 https://gitee.com/yoolan/Sunward.git ./plugins/Sunward/
 * 快捷退出群聊
 * Git克隆项目安装插件
 * 通过rm删除插件文件夹
+* 撤回消息
+* 投票撤回消息
 
 </details>
 
