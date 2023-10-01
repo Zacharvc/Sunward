@@ -1,5 +1,7 @@
 # Sunward
 
+* 版本：1.2.0
+
 * 仅支持v3云崽，请注意
 
 * 这是一个[Yunzai-Bot](https://gitee.com/le-niao/Yunzai-Bot)的插件
