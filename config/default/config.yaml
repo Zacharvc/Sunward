@@ -1,3 +1,3 @@
 # 投票撤回(voteToWithdrawMsg)
-atLeastNum: 3       #至少需要多少票
-expireDuration: 180   #过期时间/秒
+atLeastNum: 3       # 至少需要多少票
+expireDuration: 180   # 过期时间/秒

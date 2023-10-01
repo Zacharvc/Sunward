@@ -65,7 +65,7 @@ export class withdrawMsg extends plugin {
 		if (e.source.user_id === e.self_id) await this.withdrawMessage();
 		// 有无权限
 		else if (!this.hasPower(e, e.source.user_id)) this.reply("发起失败，我无权撤回目标消息");
-		else if (me.is_owner || me.is_admin || e.isMaster) await this.withdrawMessage();
+		else if (e.source.user_id === e.user_id || me.is_owner || me.is_admin || e.isMaster) await this.withdrawMessage();
 		else {
 			let needNum = (await config.getKey("config", "atLeastNum")) || 2;
 			let keepTime = (await config.getKey("config", "expireDuration")) || 180;
