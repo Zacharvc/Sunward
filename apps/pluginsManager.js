@@ -18,10 +18,12 @@ export class pluginsManager extends plugin {
 			dsc: "插件管理",
 			rule: [{
 				reg: "^#*>?(安装插件|>>>)\s*.*",
-				fnc: "installTargetPlugin"
+				fnc: "installTargetPlugin",
+				permission: "master"
 			}, {
 				reg: "^#*<?(移除插件|<<<)\s*.*",
-				fnc: "removeTargetPlugin"
+				fnc: "removeTargetPlugin",
+				permission: "master"
 			}]
 		});
 	};
@@ -30,11 +32,9 @@ export class pluginsManager extends plugin {
 		let e = this.e;
 		// 检查Git安装
 		if (!await this.checkGit()) return;
-		// 权限判断
-		if (!e.isMaster) return;
 		// 是否仍在运行
 		if (isInstalling) {
-			this.reply("其他项目安装中，请稍等");
+			this.reply("正在安装其他插件，请稍等");
 			return;
 		}
 		// 获取目标插件
@@ -55,7 +55,7 @@ export class pluginsManager extends plugin {
 		let command = `git clone ${url}${(url.endsWith(".git") ? "" : ".git")} ./plugins/${pluginName}`;
 		// 提示
 		isInstalling = true;
-		await this.reply("开始安装插件 " + pluginName);
+		await this.reply("开始安装插件：" + pluginName);
 		// 执行操作
 		exec(command, { cwd: $path, windowsHide: true }, async (error, stdout, stderr) => {
 			isInstalling = false;
@@ -83,11 +83,9 @@ export class pluginsManager extends plugin {
 	
 	async removeTargetPlugin () {
 		let e = this.e;
-		// 权限判断
-		if (!e.isMaster) return;
 		// 是否仍在运行
 		if (isRemoving) {
-			this.reply("其他插件移除中，请稍等");
+			this.reply("正在移除其他插件，请稍等");
 			return;
 		}
 		// 获取目标插件
@@ -104,18 +102,18 @@ export class pluginsManager extends plugin {
 		}
 		// 是否移除自己
 		if (pluginDirName === pluginName) {
-			this.reply("无法移除当前插件");
+			this.reply(`无法移除主体插件：${pluginName}`);
 			return;
 		}
 		// 插件是否存在
 		if (!fs.existsSync(path.join($path, "plugins", pluginName, ".git"))) {
-			this.reply(pluginName + " 插件不存在");
+			this.reply(`您并未安装插件：${pluginName}`);
 			return;
 		}
 		// 执行操作
 		isRemoving = true;
 		let command = `rm -rf ${pluginName}`;
-		await this.reply("开始移除插件 " + pluginName);
+		await this.reply("开始移除插件：" + pluginName);
 		exec(command, { cwd: path.join($path, "plugins"), windowsHide: true }, async (error, stdout, stderr) => {
 			isRemoving = false;
 			// 移除出错
