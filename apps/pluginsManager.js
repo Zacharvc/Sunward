@@ -4,6 +4,7 @@ import fs from "node:fs";
 import path from "path";
 import plugin from "../../../lib/plugins/plugin.js";
 import { Restart } from "../../other/restart.js";
+import { pluginDirName } from "../components/path.js";
 import { exec, execSync } from "node:child_process";
 
 let isInstalling = false, isRemoving = false;
@@ -61,10 +62,10 @@ export class pluginsManager extends plugin {
 			// 安装出错
 			if (error) {
 				logger.error(`Error code：${error.code}`);
-				if (/(does not exist)/.test(stderr)) this.reply("错误：项目地址不存在！");
-				else if(/(already exists and is not an empty directory)/.test(stderr)) this.reply("错误：文件夹已存在！");
+				if (/(does not exist)/.test(stderr)) this.reply("错误：项目地址不存在");
+				else if(/(already exists and is not an empty directory)/.test(stderr)) this.reply("错误：文件夹已存在");
 				else this.reply(stderr);
-				setTimeout( () => { this.reply(`${pluginName} 安装出错，请稍后再试！`) }, 500);
+				setTimeout( () => { this.reply(`${pluginName} 安装出错，请稍后再试`) }, 500);
 				return true;
 			}
 			// 克隆成功
@@ -101,9 +102,14 @@ export class pluginsManager extends plugin {
 			this.reply("请输入需要移除的插件");
 			return;
 		}
+		// 是否移除自己
+		if (pluginDirName === pluginName) {
+			this.reply("无法移除当前插件");
+			return;
+		}
 		// 插件是否存在
 		if (!fs.existsSync(path.join($path, "plugins", pluginName, ".git"))) {
-			this.reply(pluginName + " 插件不存在！");
+			this.reply(pluginName + " 插件不存在");
 			return;
 		}
 		// 执行操作
