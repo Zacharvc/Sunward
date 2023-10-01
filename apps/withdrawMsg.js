@@ -1,6 +1,7 @@
 "use strict";
 
 import plugin from "../../../lib/plugins/plugin.js";
+import config from "../components/config.js";
 
 export class withdrawMsg extends plugin {
 	constructor() {
@@ -62,9 +63,10 @@ export class withdrawMsg extends plugin {
 		// 撤回自己
 		if (e.source.user_id === e.self_id) await this.withdrawMessage();
 		// 有无权限
-		else if (!this.hasPower(e, e.source.user_id)) this.reply("发起失败，我无权撤回他人消息");
+		else if (!this.hasPower(e, e.source.user_id)) this.reply("发起失败，我无权撤回目标消息");
 		else {
-			let needNum = 2;
+			let needNum = (await config.getKey("config", "atLeastNum")) || 2;
+			let keepTime = (await config.getKey("config", "expireDuration")) || 180;
 			// 获取Redis
 			let voteNum = await redis.get(`Sunward:voteToWithdrawMsg:${e.group_id}:${e.source.seq}`);
 			// 是否首次投票
@@ -79,7 +81,7 @@ export class withdrawMsg extends plugin {
 				if (voteNum === 1) await this.reply(`${e.member.card} 发起了撤回投票(1/${needNum}), 三分钟后失效`);
 				else if (voteNum > 1) await this.reply(`${e.member.card} 同意了撤回投票(${voteNum}/${needNum})`);
 				// 存储Redis
-				await redis.set(`Sunward:voteToWithdrawMsg:${e.group_id}:${e.source.seq}`, voteNum, { EX: 180 });
+				await redis.set(`Sunward:voteToWithdrawMsg:${e.group_id}:${e.source.seq}`, voteNum, { EX: keepTime });
 			}
 		}
 	};
