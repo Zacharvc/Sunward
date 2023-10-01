@@ -6,7 +6,7 @@ import plugin from "../../../lib/plugins/plugin.js";
 import { Restart } from "../../other/restart.js";
 import { exec, execSync } from "node:child_process";
 
-let isWorking = false;
+let isInstalling = false, isRemoving = false;
 const $path = process.cwd().replace(/\\/g, "/");
 
 export class pluginsManager extends plugin {
@@ -32,8 +32,8 @@ export class pluginsManager extends plugin {
 		// 权限判断
 		if (!e.isMaster) return;
 		// 是否仍在运行
-		if (isWorking) {
-			this.reply("还有其他任务在运行中，请稍等");
+		if (isInstalling) {
+			this.reply("其他项目安装中，请稍等");
 			return;
 		}
 		// 获取目标插件
@@ -52,11 +52,11 @@ export class pluginsManager extends plugin {
 		if (pluginName.endsWith(".git")) pluginName = pluginName.split(".git")[0];
 		let command = `git clone ${url}${(url.endsWith(".git") ? "" : ".git")} ./plugins/${pluginName}`;
 		// 提示
-		isWorking = true;
+		isInstalling = true;
 		await this.reply("开始安装插件 " + pluginName);
 		// 执行操作
 		exec(command, { cwd: $path, windowsHide: true }, async (error, stdout, stderr) => {
-			isWorking = false;
+			isInstalling = false;
 			// 安装出错
 			if (error) {
 				logger.error(`Error code：${error.code}`);
@@ -84,8 +84,8 @@ export class pluginsManager extends plugin {
 		// 权限判断
 		if (!e.isMaster) return;
 		// 是否仍在运行
-		if (isWorking) {
-			this.reply("还有其他任务在运行中，请稍等");
+		if (isRemoving) {
+			this.reply("其他插件移除中，请稍等");
 			return;
 		}
 		// 获取目标插件
@@ -103,10 +103,10 @@ export class pluginsManager extends plugin {
 			return;
 		}
 		// 执行操作
-		isWorking = true;
+		isRemoving = true;
 		let command = `rm -rf ${pluginName}`;
 		exec(command, { cwd: path.join($path, "plugins"), windowsHide: true }, async (error, stdout, stderr) => {
-			isWorking = false;
+			isRemoving = false;
 			// 移除出错
 			if (error) {
 				logger.error(`Error code：${error.code}`);
