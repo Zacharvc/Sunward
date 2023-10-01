@@ -13,7 +13,7 @@ export class withdrawListener extends plugin {
 	};
 	
 	async accept () {
-		logger.mark(Bot.getMsg(this.e.message_id));
+		logger.mark(await Bot.getMsg(this.e.message_id));
 	};
 	
 };
