@@ -44,7 +44,7 @@ export class pluginsManager extends plugin {
 		if (pluginName.endsWith(".git")) pluginName = pluginName.split(".git")[0];
 		let command = `git clone ${url}${(url.endsWith(".git") ? "" : ".git")} ./plugins/${pluginName}`;
 		// 提示
-		this.reply("开始安装插件 " + pluginName);
+		await this.reply("开始安装插件 " + pluginName);
 		// 执行操作
 		exec(command, { cwd: $path, windowsHide: true }, async (error, stdout, stderr) => {
 			// 安装出错

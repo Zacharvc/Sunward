@@ -41,7 +41,12 @@ export class withdrawMsg extends plugin {
 		// 撤回他人
 		else {
 			if (!this.hasPower(e, e.source.user_id)) this.reply("很抱歉，我无权这样做");
-			else await e.group.recallMsg(e.source.seq);
+			else {
+				// 如果是撤回自己
+				let me = e.group.pickMember(e.user_id);
+				if (e.source.user_id === e.user_id || e.isMaster || me.is_owner || me.is_admin) await e.group.recallMsg(e.source.seq);
+				else this.reply("很抱歉，您无权这样做");
+			}
 		}
 	};
 	
