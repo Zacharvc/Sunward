@@ -24,34 +24,28 @@ git clone --depth=1 https://github.com/Zacharvc/Sunward.git ./plugins/Sunward/
 git clone --depth=1 https://gitee.com/yoolan/Sunward.git ./plugins/Sunward/
 ```
 
-## 实现功能
+## 插件功能
 
 <details>
-  <summary>已实现的功能(点击展开)</summary>
+  <summary>全部功能</summary>
 
-* 查看好友列表
-* 查看群聊列表
-* 快捷删除好友
-* 快捷退出群聊
-* Git克隆项目安装插件
-* 通过rm删除插件文件夹
-* 撤回消息
-* 投票撤回消息
+* [x] 查看好友列表
+* [x] 查看群聊列表
+* [x] 快捷删除好友
+* [x] 快捷退出群聊
+* [x] Git克隆项目安装插件
+* [x] 通过rm删除插件文件夹
+* [x] 撤回消息
+* [x] 投票撤回消息
+* [ ] 监测好友请求
+* [ ] 监测加群邀请
+* [ ] 快捷删除全部好友
+* [ ] 快捷退出所有群聊
+* [ ] 功能图形化
 
 </details>
 
-<details>
-  <summary>待实现的功能(点击展开)</summary>
-
-* 监测好友请求
-* 监测加群邀请
-* 快捷删除全部好友
-* 快捷退出所有群聊
-* 功能图形化
-
-</details>
-
-[查看功能说明](apps/README.md)
+[查看功能说明文档](apps/README.md)
 
 ## 其他
 
