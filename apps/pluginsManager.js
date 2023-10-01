@@ -19,7 +19,7 @@ export class pluginsManager extends plugin {
 				reg: "^#*>?(安装插件|>>>)\s*.*",
 				fnc: "installTargetPlugin"
 			}, {
-				reg: "^#*>?(移除插件|<<<)\s*.*",
+				reg: "^#*<?(移除插件|<<<)\s*.*",
 				fnc: "removeTargetPlugin"
 			}]
 		});
@@ -89,7 +89,7 @@ export class pluginsManager extends plugin {
 			return;
 		}
 		// 获取目标插件
-		let reg = new RegExp(/^#*(>)?(移除插件|<<<)\s*(.*)/, "i");
+		let reg = new RegExp(/^#*(<)?(移除插件|<<<)\s*(.*)/, "i");
 		let pluginName = e.msg.match(reg)[3];
 		let autoRestart = e.msg.match(reg)[1] ? true : false;
 		// 检测合法性
