@@ -8,7 +8,7 @@ async function getKey(fileName, key) {
 	let filePath = `${pluginRootDir}/config/${fileName}.yaml`, defFilePath = `${pluginRootDir}/config/default/${fileName}.yaml`;
 	// 配置文件是否存在
 	if (!fs.existsSync(filePath)) {
-		if (fs.existsSync(defFilePath)) fs.copyFile(defFilePath, filePath);
+		if (fs.existsSync(defFilePath)) await fs.copyFileSync(defFilePath, filePath);
 		filePath = defFilePath;
 	}
 	// YAM转Json
