@@ -49,6 +49,8 @@ git clone --depth=1 https://gitee.com/yoolan/Sunward.git ./plugins/Sunward/
 
 </details>
 
+[查看功能说明](apps/README.md)
+
 ## 其他
 
 * 捐赠支持：[爱发电](https://afdian.net/a/withGarlic)
