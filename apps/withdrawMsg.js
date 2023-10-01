@@ -61,9 +61,9 @@ export class withdrawMsg extends plugin {
 		// 是否引用消息
 		if (!e.hasReply && !e.source) return;
 		// 撤回自己
+		let me = e.group.pickMember(e.user_id);
 		if (e.source.user_id === e.self_id) await this.withdrawMessage();
 		// 有无权限
-		let me = e.group.pickMember(e.user_id);
 		else if (!this.hasPower(e, e.source.user_id)) this.reply("发起失败，我无权撤回目标消息");
 		else if (me.is_owner || me.is_admin || e.isMaster) await this.withdrawMessage();
 		else {
