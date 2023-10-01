@@ -93,7 +93,7 @@ export class pluginsManager extends plugin {
 				return true;
 			}
 			// 移除成功
-			this.reply(`${pluginName} 移除成功`);
+			this.reply(`${pluginName} 移除成功，请手动重启防止插件报错`);
 			return true;
 		});
 	};
