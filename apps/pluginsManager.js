@@ -40,6 +40,7 @@ export class pluginsManager extends plugin {
 		let reg = new RegExp(/^#*(>)?(安装插件|>>>)\s*(.*)/, "i");
 		let msg = e.msg.match(reg)[3].split(" ");
 		let url = msg[0], pluginName = (msg.length > 1) ? msg[1] : "";
+		// 自动重启
 		let autoRestart = e.msg.match(reg)[1] ? true : false;
 		// 检测合法性
 		if (!url || url === "") {
@@ -90,7 +91,10 @@ export class pluginsManager extends plugin {
 		}
 		// 获取目标插件
 		let reg = new RegExp(/^#*(<)?(移除插件|<<<)\s*(.*)/, "i");
-		let pluginName = e.msg.match(reg)[3];
+		let pluginName = e.msg.match(reg)[3].split("/");
+		pluginName = pluginName[pluginName.length - 1];
+		if (pluginName.endsWith(".git")) pluginName = pluginName.split(".git")[0];
+		// 自动重启
 		let autoRestart = e.msg.match(reg)[1] ? true : false;
 		// 检测合法性
 		if (!pluginName || pluginName === "") {
@@ -105,6 +109,7 @@ export class pluginsManager extends plugin {
 		// 执行操作
 		isRemoving = true;
 		let command = `rm -rf ${pluginName}`;
+		await this.reply("开始移除插件 " + pluginName);
 		exec(command, { cwd: path.join($path, "plugins"), windowsHide: true }, async (error, stdout, stderr) => {
 			isRemoving = false;
 			// 移除出错
