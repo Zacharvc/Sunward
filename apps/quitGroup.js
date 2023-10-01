@@ -11,15 +11,14 @@ export class quitGroup extends plugin {
 			dsc: "退出群聊",
 			rule: [{
 				reg: "^#*退出群聊*\s*.*",
-				fnc: "quitGroups"
+				fnc: "quitGroups",
+				permission: "master"
 			}]
 		});
 	};
 	
 	async quitGroups () {
 		let e = this.e;
-		// 权限判断
-		if (!e.isMaster) return;
 		// 匹配目标
 		let reg = new RegExp(/^#*退出群聊*\s*(.*)/, "i");
 		// 获取目标群聊

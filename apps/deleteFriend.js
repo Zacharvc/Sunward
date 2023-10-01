@@ -15,15 +15,14 @@ export class deleteFriend extends plugin {
 			dsc: "删除好友",
 			rule: [{
 				reg: "^#*删除*好友\s*.*",
-				fnc: "deleteFriends"
+				fnc: "deleteFriends",
+				permission: "master"
 			}]
 		});
 	};
 	
 	async deleteFriends () {
 		let e = this.e;
-		// 权限判断
-		if (!e.isMaster) return;
 		// 匹配目标
 		let reg = new RegExp(/^#*删除*好友\s*(.*)/, "i");
 		// 获取目标好友

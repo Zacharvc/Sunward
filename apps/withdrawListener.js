@@ -7,12 +7,13 @@ export class withdrawListener extends plugin {
 		super({
 			name: "withdrawListener",
 			event: "notice.group.recall",
-			dsc: "群消息撤回捕获"
+			dsc: "群消息撤回捕获",
+			priority: -Infinity
 		});
 	};
 	
 	async accept () {
-		logger.mark(this);
+		logger.mark(Bot.getMsg(this.e.message_id));
 	};
 	
 };
