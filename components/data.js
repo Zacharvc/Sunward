@@ -21,7 +21,7 @@ async function addData (dataName, content, mode = "addBottom", autoDel = false) 
 	// 检测是否自动删除
 	if (autoDel && typeof autoDel == "number") {
 		let date = new Date();
-		let nextDay = date.setDate(date.getDate() + 1));
+		let nextDay = date.setDate(date.getDate() + autoDel));
 		date = new Date(nextDay);
 		autoDel = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDay()}`;
 	}
