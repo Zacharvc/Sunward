@@ -60,7 +60,7 @@ export class frozenAutoChange extends plugin {
 	
 };
 
-export class kickoffAutoChange extends plugin {
+/* export class kickoffAutoChange extends plugin {
 	constructor() {
 		super({
 			name: "kickoffAutoChange",
@@ -74,4 +74,4 @@ export class kickoffAutoChange extends plugin {
 		
 	};
 	
-};
+}; */
