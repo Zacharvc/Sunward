@@ -1,0 +1,13 @@
+# 账号管理
+# 账号冻结后自动换号
+## 账号列表，格式：key - 账号，value - 密码
+## 例如：10000: 0123456789
+list: 
+# 是否启用账号管理
+enable: false
+# 自动换号间隔时间，单位/秒
+reconnectSec: 5
+# 账号在其他客户端登录被踢下线后执行：change - 换号，reonline - 重新上线，none - 什么都不做
+kickoffThen: change
+# 换号后是否通知主人
+tellMaster: true
