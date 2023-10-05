@@ -11,13 +11,13 @@ async function getKey(fileName, key) {
 		if (fs.existsSync(defFilePath)) {
 			await fs.copyFileSync(defFilePath, filePath);
 			filePath = defFilePath;
-		} else return null;
+		}
 	}
 	// YAML转Json
 	let configs = await YAML.parse(fs.readFileSync(filePath, "utf-8"));
 	// 是否存在指定键
 	if (key in configs) return configs[key];
-	else return null;
+	return null;
 };
 
 export default { getKey };
