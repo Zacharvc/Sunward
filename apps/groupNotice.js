@@ -21,6 +21,7 @@ export class memberIncrease extends plugin {
 		if (!enableMemberIncrease) return;
 		// 发送消息
 		let tips = await config.getKey("config", "increaseTips");
+		if (!tips.match(Reg)) return;
 		tips.match(Reg).forEach( (replace) => {
 			let replaceTo = replace.split("#(")[1];
 			replaceTo = replaceTo.slice(0, replaceTo.lastIndexOf(")"));
@@ -47,6 +48,7 @@ export class memberDecrease extends plugin {
 		if (!enableMemberDecrease) return;
 		// 发送消息
 		let tips = await config.getKey("config", "decreaseTips");
+		if (!tips.match(Reg)) return;
 		tips.match(Reg).forEach( (replace) => {
 			let replaceTo = replace.split("#(")[1];
 			replaceTo = replaceTo.slice(0, replaceTo.lastIndexOf(")"));
