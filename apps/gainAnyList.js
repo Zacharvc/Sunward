@@ -11,7 +11,7 @@ let botManagers = config.masterQQ;
 export class gainAnyList extends plugin {
 	constructor() {
 		super({
-			name: "gainAnyList",
+			name: "列表获取",
 			event: "message",
 			dsc: "获取机器人账号相关信息列表",
 			rule: [{

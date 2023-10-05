@@ -16,7 +16,7 @@ let Timer;
 export class updateSunward extends plugin {
 	constructor() {
 		super({
-			name: "updateSunward",
+			name: `${pluginCnName}插件更新`,
 			event: "message",
 			dsc: "向阳插件更新",
 			rule: [{

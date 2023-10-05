@@ -13,7 +13,7 @@ const $path = process.cwd().replace(/\\/g, "/");
 export class pluginsManager extends plugin {
 	constructor() {
 		super({
-			name: "pluginsManager",
+			name: "插件管理",
 			event: "message",
 			dsc: "插件管理",
 			rule: [{

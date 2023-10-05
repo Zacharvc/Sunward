@@ -6,7 +6,7 @@ import common from "../components/common.js";
 export class quitGroup extends plugin {
 	constructor() {
 		super({
-			name: "quitGroup",
+			name: "退出群聊",
 			event: "message",
 			dsc: "退出群聊",
 			rule: [{

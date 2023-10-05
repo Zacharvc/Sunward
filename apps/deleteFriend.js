@@ -10,7 +10,7 @@ let botManagers = config.masterQQ;
 export class deleteFriend extends plugin {
 	constructor() {
 		super({
-			name: "deleteFriend",
+			name: "删除好友",
 			event: "message",
 			dsc: "删除好友",
 			rule: [{

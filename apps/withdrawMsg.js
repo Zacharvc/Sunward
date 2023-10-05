@@ -6,7 +6,7 @@ import config from "../components/config.js";
 export class withdrawMsg extends plugin {
 	constructor() {
 		super({
-			name: "withdrawMsg",
+			name: "消息撤回",
 			event: "message",
 			dsc: "撤回消息",
 			rule: [{
@@ -67,7 +67,7 @@ export class withdrawMsg extends plugin {
 		else if (!this.hasPower(e, e.source.user_id)) this.reply("发起失败，我无权撤回目标消息");
 		else if (e.source.user_id === e.user_id || me.is_owner || me.is_admin || e.isMaster) await this.withdrawMessage();
 		else {
-			let needNum = (await config.getKey("config", "atLeastNum")) || 2;
+			let needNum = (await config.getKey("config", "atLeastNum")) || 3;
 			let keepTime = (await config.getKey("config", "expireDuration")) || 180;
 			// 获取Redis
 			let voteNum = await redis.get(`Sunward:voteToWithdrawMsg:${e.group_id}:${e.source.seq}`);
