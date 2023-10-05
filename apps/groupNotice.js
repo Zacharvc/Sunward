@@ -22,10 +22,11 @@ export class memberIncrease extends plugin {
 		// 发送消息
 		let tips = await config.getKey("config", "increaseTips");
 		if (!tips.match(Reg)) return;
+		// 替换处理
 		tips.match(Reg).forEach( (replace) => {
 			let replaceTo = replace.split("#(")[1];
 			replaceTo = replaceTo.slice(0, replaceTo.lastIndexOf(")"));
-			replaceTo = eval(replaceTo);
+			replaceTo = eval(replaceTo) || "Error";
 			tips = tips.replace(replace, replaceTo);
 		});
 		await this.reply(tips);
@@ -49,10 +50,11 @@ export class memberDecrease extends plugin {
 		// 发送消息
 		let tips = await config.getKey("config", "decreaseTips");
 		if (!tips.match(Reg)) return;
+		// 替换处理
 		tips.match(Reg).forEach( (replace) => {
 			let replaceTo = replace.split("#(")[1];
 			replaceTo = replaceTo.slice(0, replaceTo.lastIndexOf(")"));
-			replaceTo = eval(replaceTo);
+			replaceTo = eval(replaceTo) || "Error";
 			tips = tips.replace(replace, replaceTo);
 		});
 		await this.reply(tips);
