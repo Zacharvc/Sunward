@@ -1,3 +1,9 @@
 # 投票撤回(voteToWithdrawMsg)
-atLeastNum: 3       # 至少需要多少票
-expireDuration: 180   # 过期时间/秒
+atLeastNum: 3                  # 至少需要多少票
+expireDuration: 180             # 过期时间/秒
+# 进群通知
+enableMemberIncrease: true    # 默认开启
+increaseTips: "#(this.e.member.card || this.e.member.nickname) 欢迎入群！"
+# 离群通知
+enableMemberDecrease: true   # 默认开启
+decreaseTips: "#(this.e.member.card || this.e.member.nickname) 退群了"
