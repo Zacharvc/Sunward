@@ -1,7 +1,7 @@
 "use strict";
 
 import plugin from "../../../lib/plugins/plugin.js";
-import config from "../../../lib/config/config.js";
+import config from "../components/config.js";
 import common from "../components/common.js";
 
 const enableMemberIncrease = await config.getKey("config", "enableMemberIncrease");
