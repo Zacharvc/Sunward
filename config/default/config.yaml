@@ -3,7 +3,9 @@ atLeastNum: 3                  # 至少需要多少票
 expireDuration: 180             # 过期时间/秒
 # 进群通知
 enableMemberIncrease: true    # 默认开启
-increaseTips: "#(this.e?.nickname) 欢迎新朋友！"
+topAtIncrease: true             # 是否添加头部At
+increaseTips: "欢迎新朋友！"
 # 离群通知
 enableMemberDecrease: true   # 默认开启
+topAtDecrease: false             # 是否添加头部At
 decreaseTips: "#(this.e?.member?.card || this.e?.member?.nickname) 离开了本群"
