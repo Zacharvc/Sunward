@@ -21,9 +21,9 @@ export class memberIncrease extends plugin {
 		// 发送消息
 		let reg = new RegExp(/#\([\S]+\)/, "g");
 		let tips = await config.getKey("config", "increaseTips");
-		tips.match(reg).forEach( (replace) => {
+		tips.toString().match(reg).forEach( (replace) => {
 			let replaceTo = replace.split("#(")[1];
-			replaceTo = replaceTo.split(")")[0];
+			replaceTo = replaceTo.slice(0, replaceTo.lastIndexOf(")"));
 			replaceTo = eval(replaceTo);
 			tips = tips.replace(replace, replaceTo);
 		});
@@ -48,9 +48,9 @@ export class memberDecrease extends plugin {
 		// 发送消息
 		let reg = new RegExp(/#\([\S]+\)/, "g");
 		let tips = await config.getKey("config", "decreaseTips");
-		tips.match(reg).forEach( (replace) => {
+		tips.toString().match(reg).forEach( (replace) => {
 			let replaceTo = replace.split("#(")[1];
-			replaceTo = replaceTo.split(")")[0];
+			replaceTo = replaceTo.slice(0, replaceTo.lastIndexOf(")"));
 			replaceTo = eval(replaceTo);
 			tips = tips.replace(replace, replaceTo);
 		});
