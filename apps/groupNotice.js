@@ -17,7 +17,7 @@ export class memberIncrease extends plugin {
 	};
 
 	async accept () {
-		if (enableMemberIncrease) return;
+		if (!enableMemberIncrease) return;
 		// 发送消息
 		let reg = new RegExp(/#\([\S]+\)/, "g");
 		let tips = await config.getKey("config", "increaseTips");
@@ -44,7 +44,7 @@ export class memberDecrease extends plugin {
 	};
 
 	async accept () {
-		if (enableMemberDecrease) return;
+		if (!enableMemberDecrease) return;
 		// 发送消息
 		let reg = new RegExp(/#\([\S]+\)/, "g");
 		let tips = await config.getKey("config", "decreaseTips");
