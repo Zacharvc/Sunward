@@ -7,7 +7,7 @@ import { Restart } from "../../other/restart.js";
 import { pluginDirName } from "../components/path.js";
 import { exec, execSync } from "node:child_process";
 
-let isInstalling = false, isRemoving = false;
+let isInstalling = false, isRemoving = false, packageInstalling = false;
 const $path = process.cwd().replace(/\\/g, "/");
 
 export class pluginsManager extends plugin {
@@ -17,12 +17,16 @@ export class pluginsManager extends plugin {
 			event: "message",
 			dsc: "插件管理",
 			rule: [{
-				reg: "^#*>?(安装插件|>>>)\s*.*",
+				reg: "^#*>?(安装插件|>>)\s*.*",
 				fnc: "installTargetPlugin",
 				permission: "master"
 			}, {
-				reg: "^#*<?(移除插件|<<<)\s*.*",
+				reg: "^#*<?(移除插件|<<)\s*.*",
 				fnc: "removeTargetPlugin",
+				permission: "master"
+			}, {
+				reg: "^#*安装依赖\s*.*",
+				fnc: "installPackage",
 				permission: "master"
 			}]
 		});
@@ -38,7 +42,7 @@ export class pluginsManager extends plugin {
 			return;
 		}
 		// 获取目标插件
-		let reg = new RegExp(/^#*(>)?(安装插件|>>>)\s*(.*)/, "i");
+		let reg = new RegExp(/^#*(>)?(安装插件|>>)\s*(.*)/, "i");
 		let msg = e.msg.match(reg)[3].split(" ");
 		let url = msg[0], pluginName = (msg.length > 1) ? msg[1] : "";
 		// 自动重启
@@ -89,7 +93,7 @@ export class pluginsManager extends plugin {
 			return;
 		}
 		// 获取目标插件
-		let reg = new RegExp(/^#*(<)?(移除插件|<<<)\s*(.*)/, "i");
+		let reg = new RegExp(/^#*(<)?(移除插件|<<)\s*(.*)/, "i");
 		let pluginName = e.msg.match(reg)[3].split("/");
 		pluginName = pluginName[pluginName.length - 1];
 		if (pluginName.endsWith(".git")) pluginName = pluginName.split(".git")[0];
@@ -130,6 +134,48 @@ export class pluginsManager extends plugin {
 				setTimeout( () => { new Restart(e).restart() }, 2000);
 			} else this.reply(`${pluginName} 移除成功，请手动重启防止插件报错`);
 			return true;
+		});
+	};
+	
+	async installPackage () {
+		let e = this.e;
+		// 是否仍在运行
+		if (packageInstalling) {
+			this.reply("正在安装其他插件依赖，请稍等");
+			return;
+		}
+		// 获取目标插件
+		let reg = new RegExp(/^#*安装依赖\s*(.*)/, "i");
+		let pluginName = e.msg.match(reg)[1].split("/");
+		pluginName = pluginName[pluginName.length - 1];
+		if (pluginName.endsWith(".git")) pluginName = pluginName.split(".git")[0];
+		// 检测合法性
+		if (!pluginName || pluginName === "") {
+			this.reply("请输入需要安装依赖的插件");
+			return;
+		}
+		// 插件是否存在
+		if (!fs.existsSync(path.join($path, "plugins", pluginName, ".git"))) {
+			this.reply(`您并未安装插件：${pluginName}`);
+			return;
+		}
+		// 执行操作
+		packageInstalling = true;
+		let command = `pnpm install`;
+		await this.reply("开始安装依赖：" + pluginName);
+		exec(command, { cwd: path.join($path, "plugins", pluginName), windowsHide: true }, async (error, stdout, stderr) => {
+			packageInstalling = false;
+			// 安装依赖出错
+			if (error) {
+				logger.error(`Error code：${error.code}`);
+				logger.error(`Error trick：${error.trick}`);
+				this.reply(`${pluginName} 依赖安装出错，请查看日志`);
+				return true;
+			}
+			// 安装依赖成功
+			// 自动重启
+			await this.reply(`${pluginName} 依赖安装成功，开始尝试调用重启...`);
+			setTimeout( () => { new Restart(e).restart() }, 2000);
 		});
 	};
 	
