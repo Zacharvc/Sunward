@@ -38,7 +38,7 @@ export class memberIncrease extends plugin {
 		let groupInfo = `${this.e.bot.pickGroup(this.e.group).name}(${this.e.group_id})`;
 		let msg = [tips];
 		if (topAt) msg.unshift(segment.at(this.e.user_id));
-		logger.mark(`[${this.name}] ${targetInfo} 加入 ${groupInfo}`);
+		logger.mark(`[${this.name}] ${targetInfo}加入${groupInfo}`);
 		await this.reply(msg);
 		// Return
 		return true;
@@ -72,12 +72,12 @@ export class memberDecrease extends plugin {
 		});
 		// 构建消息
 		let targetInfo = this.e?.member?.card || this.e?.member?.nickname;
-		let groupInfo = `${this.e.bot.pickGroup(this.e.group).name}(${this.e.group_id})`;
-		let operatorInfo = `${this.e.bot.pickMember(this.e.operator_id).name}(${this.e.operator_id})`;
+		let groupInfo = `${this.e.group.name}(${this.e.group_id})`;
+		let operatorInfo = `${this.e.bot.pickMember(this.e.operator_id).card}(${this.e.operator_id})`;
 		if (targetInfo) targetInfo = `${targetInfo}(${this.e.user_id})`;
 		let msg = [tips];
 		if (topAt) msg.unshift(segment.at(this.e.user_id));
-		logger.mark(`[${this.name}] ${targetInfo} 被${operatorInfo}移出 ${groupInfo}`);
+		logger.mark(`[${this.name}] ${targetInfo}被${operatorInfo}移出${groupInfo}`);
 		await this.reply(msg);
 		// Return
 		return true;
