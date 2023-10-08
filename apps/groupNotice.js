@@ -21,7 +21,7 @@ export class memberIncrease extends plugin {
 	async accept () {
 		if (!enableMemberIncrease) return;
 		// 是不是自己
-		if (this.e.user_id === this.bot.uin) return;
+		if (this.e.user_id == this.bot.uin) return;
 		// 发送消息
 		let tips = await config.getKey("config", "increaseTips");
 		let topAt = await config.getKey("config", "topAtIncrease");
@@ -57,6 +57,8 @@ export class memberDecrease extends plugin {
 
 	async accept () {
 		if (!enableMemberDecrease) return;
+		// 是不是自己
+		if (this.e.user_id == this.bot.uin) return;
 		// 发送消息
 		let tips = await config.getKey("config", "decreaseTips");
 		let topAt = await config.getKey("config", "topAtDecrease");
