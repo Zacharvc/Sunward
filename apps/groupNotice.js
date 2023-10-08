@@ -21,7 +21,7 @@ export class memberIncrease extends plugin {
 	async accept () {
 		if (!enableMemberIncrease) return;
 		// 是不是自己
-		if (this.e.user_id == this.bot.uin) return;
+		if (this.e.user_id == this.e.bot.uin) return;
 		// 发送消息
 		let tips = await config.getKey("config", "increaseTips");
 		let topAt = await config.getKey("config", "topAtIncrease");
@@ -35,7 +35,7 @@ export class memberIncrease extends plugin {
 		});
 		// 构建消息
 		let targetInfo = this.e?.nickname ? `${this.e.nickname}(${this.e.user_id})` : this.e.user_id;
-		let groupInfo = `${this.bot.pickGroup(this.e.group).name}(${this.e.group_id})`;
+		let groupInfo = `${this.e.bot.pickGroup(this.e.group).name}(${this.e.group_id})`;
 		let msg = [tips];
 		if (topAt) msg.unshift(segment.at(this.e.user_id));
 		logger.mark(`[${this.name}] ${targetInfo} 加入 ${groupInfo}`);
@@ -58,7 +58,7 @@ export class memberDecrease extends plugin {
 	async accept () {
 		if (!enableMemberDecrease) return;
 		// 是不是自己
-		if (this.e.user_id == this.bot.uin) return;
+		if (this.e.user_id == this.e.bot.uin) return;
 		// 发送消息
 		let tips = await config.getKey("config", "decreaseTips");
 		let topAt = await config.getKey("config", "topAtDecrease");
@@ -72,8 +72,8 @@ export class memberDecrease extends plugin {
 		});
 		// 构建消息
 		let targetInfo = this.e?.member?.card || this.e?.member?.nickname;
-		let groupInfo = `${this.bot.pickGroup(this.e.group).name}(${this.e.group_id})`;
-		let operatorInfo = `${this.bot.pickMember(this.e.operator_id).name}(${this.e.operator_id})`;
+		let groupInfo = `${this.e.bot.pickGroup(this.e.group).name}(${this.e.group_id})`;
+		let operatorInfo = `${this.e.bot.pickMember(this.e.operator_id).name}(${this.e.operator_id})`;
 		if (targetInfo) targetInfo = `${targetInfo}(${this.e.user_id})`;
 		let msg = [tips];
 		if (topAt) msg.unshift(segment.at(this.e.user_id));
