@@ -20,6 +20,8 @@ export class memberIncrease extends plugin {
 
 	async accept () {
 		if (!enableMemberIncrease) return;
+		// 是不是自己
+		if (this.e.user_id === this.bot.uin) return;
 		// 发送消息
 		let tips = await config.getKey("config", "increaseTips");
 		let topAt = await config.getKey("config", "topAtIncrease");
@@ -32,9 +34,11 @@ export class memberIncrease extends plugin {
 			tips = tips.replace(replace, replaceTo);
 		});
 		// 构建消息
+		let targetInfo = this.e?.nickname ? `${this.e.nickname}(${this.e.user_id})` : this.e.user_id;
+		let groupInfo = `${this.bot.pickGroup(this.e.group).name}(${this.e.group_id})`;
 		let msg = [tips];
 		if (topAt) msg.unshift(segment.at(this.e.user_id));
-		logger.mark(`[${this.name}] ${this.e.user_id} 加入 ${this.e.group_id}`);
+		logger.mark(`[${this.name}] ${targetInfo} 加入 ${groupInfo}`);
 		await this.reply(msg);
 		// Return
 		return true;
@@ -65,9 +69,13 @@ export class memberDecrease extends plugin {
 			tips = tips.replace(replace, replaceTo);
 		});
 		// 构建消息
+		let targetInfo = this.e?.member?.card || this.e?.member?.nickname;
+		let groupInfo = `${this.bot.pickGroup(this.e.group).name}(${this.e.group_id})`;
+		let operatorInfo = `${this.bot.pickMember(this.e.operator_id).name}(${this.e.operator_id})`;
+		if (targetInfo) targetInfo = `${targetInfo}(${this.e.user_id})`;
 		let msg = [tips];
 		if (topAt) msg.unshift(segment.at(this.e.user_id));
-		logger.mark(`[${this.name}] ${this.e.user_id} 退出 ${this.e.group_id}`);
+		logger.mark(`[${this.name}] ${targetInfo} 被${operatorInfo}移出 ${groupInfo}`);
 		await this.reply(msg);
 		// Return
 		return true;
