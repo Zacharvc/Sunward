@@ -4,8 +4,18 @@ expireDuration: 180             # 过期时间/秒
 # 进群通知
 enableMemberIncrease: true    # 默认开启
 topAtIncrease: true             # 是否添加头部At
-increaseTips: "欢迎新朋友！"
+increaseTips: " 欢迎新朋友！"
 # 离群通知
 enableMemberDecrease: true   # 默认开启
-topAtDecrease: false             # 是否添加头部At
-decreaseTips: "#(this.e?.member?.card || this.e?.member?.nickname) 离开了本群"
+topAtDecrease: false           # 是否添加头部At
+decreaseTips: "#(this.e?.member?.card || this.e?.member?.nickname) 离开了"
+
+# (白名单优先级高于黑名单)
+# 成员白名单列表
+memberWhiteList: # 配置后则只有名单中的成员能触发指令
+# 群聊白名单列表
+groupWhiteList:   # 配置后则只有名单中的群聊能触发指令
+# 成员黑名单列表
+memberBlackList: # 配置后名单中的成员不能触发指令
+# 群聊黑名单列表
+groupBlackList:   # 配置后名单中的群聊不能触发指令
