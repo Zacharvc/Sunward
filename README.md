@@ -1,10 +1,12 @@
-# Sunward(项目已停止维护)
+# Sunward
 
 * 版本：1.2.0
 
 * 仅支持v3云崽，请注意
 
 * 这是一个[Yunzai-Bot](https://gitee.com/le-niao/Yunzai-Bot)的插件
+
+* 因关注不足及本人学业问题，该项目暂停维护(2023/10/25)
 
 ## 安装方法
 
